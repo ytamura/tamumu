@@ -1,0 +1,211 @@
+/*
+* {
+	border: 1px dashed green;
+}
+*/
+
+.background-line {
+	position:fixed;
+	background-color: white;
+	height: 150px;
+	width: 90%;
+	top: 50%;
+	margin-top: -75px;
+
+	transform-origin: 100% 50%;
+	-webkit-transform-origin: 100% 50%;
+	-moz-transform-origin: 100% 50%;
+	-ms-transform-origin: 100% 50%;
+	-o-transform-origin: 100% 50%;
+}
+
+#tag-line {
+	position: fixed;
+	background-color: #2A6EFF;
+	color: white;
+	height: 50px;
+	width: 300px;
+	top: 50%;
+	left: 0px;
+	margin-top: -100px;
+	padding-left: 7px;
+	z-index: 0;
+	transition: top 1s ease-out;
+	-webkit-transition: top 1s ease-out;
+}
+
+#profile-links {
+	position: fixed;
+	color: black;
+	height: 20px;
+	width: 250px;
+	top: 50%;
+	left: 0px;
+	margin-top: -40px;
+	padding-left: 7px;
+	z-index: 2;
+	opacity: 0.9;
+
+	transition: top 1s ease-out;
+	-webkit-transition: top 1s ease-out;
+}
+
+@keyframes slidein {
+	0%   {left:-300px;}
+	100% {left:0px;}
+}
+
+@-webkit-keyframes slidein {
+	0%   {left:-300px;}
+	100% {left:0px;}
+}
+
+#profile-links ul {
+	margin: 0;
+	list-style-type: none;
+	padding: 0;
+	margin-left: 0;
+}
+
+#profile-links li {
+	display: inline-block;
+}
+
+#profile-links li::after {
+	content: "|";
+}
+
+#profile-links li:last-child::after {
+	content: "";
+}
+
+/*@media only screen and (max-width: 1050px), only screen and (max-device-width: 1050px), only screen and (max-height: 650), only screen and (max-device-height: 650) {*/
+@media only screen and (max-width: 900px), only screen and (max-device-width: 900px) {
+    .background-line {
+        display: none !important;
+    }
+
+    #tag-line {
+    	top: 0% !important;
+    	margin-top: 0px !important;
+    	z-index: 2;
+    }
+
+    #profile-links {
+    	top: 0% !important;
+    	margin-top: 50px !important;
+    	background-color: white;
+    }
+
+    #footer {
+    	left: 0px;
+    }
+}
+
+@media only screen and (max-width: 570px), only screen and (max-device-width: 570px), only screen and (max-width: 900px) and (max-height: 582px), only screen and (max-device-width: 900px) and (max-height: 582px) {
+	#tag-line, #profile-links {
+    	width: 100%;
+    }
+}
+
+#bg-line0 {
+	animation-name:slidein0;
+	animation-duration:1s;
+	animation-timing-function:ease-out;
+	animation-iteration-count:1;
+
+	-webkit-animation-name:slidein0;
+	-webkit-animation-duration:1s;
+	-webkit-animation-timing-function:ease-out;
+	-webkit-animation-iteration-count:1;
+}
+
+@keyframes slidein0 {
+	0%   {left:-5%;}
+	100% {left:0%;}
+}
+
+@-webkit-keyframes slidein0 {
+	0%   {left:-5%;}
+	100% {left:0%;}
+}
+
+#bg-line1 {
+	transform: translate(20%, 0%) rotate(-45deg);
+	-webkit-transform: translate(20%, 0%) rotate(-45deg) ; /* Safari and Chrome */
+	-moz-transform: translate(20%, 0%) rotate(-45deg);
+	-ms-transform: translate(20%, 0%) rotate(-45deg);
+	-o-transform: translate(20%, 0%) rotate(-45deg); /* IE 9 */
+
+	animation-name:slidein1;
+	animation-duration:1s;
+	animation-timing-function:ease-out;
+	animation-iteration-count:1;
+	/* Safari and Chrome: */
+	-webkit-animation-name:slidein1;
+	-webkit-animation-duration:1s;
+	-webkit-animation-timing-function:ease-out;
+	-webkit-animation-iteration-count:1;
+}
+
+#bg-line2 {
+	transform: translate(20%, 0%) rotate(45deg);
+	-webkit-transform: translate(20%, 0%) rotate(45deg) ; /* Safari and Chrome */
+	-moz-transform: translate(20%, 0%) rotate(45deg);
+	-ms-transform: translate(20%, 0%) rotate(45deg);
+	-o-transform: translate(20%, 0%) rotate(45deg); /* IE 9 */
+
+	animation-name:slidein1;
+	animation-duration:1s;
+	animation-timing-function:ease-out;
+	animation-iteration-count:1;
+	/* Safari and Chrome: */
+	-webkit-animation-name:slidein1;
+	-webkit-animation-duration:1s;
+	-webkit-animation-timing-function:ease-out;
+	-webkit-animation-iteration-count:1;
+}
+
+@keyframes slidein1 {
+	0%   {left:5%;}
+	100% {left:0%;}
+}
+
+@-webkit-keyframes slidein1 {
+	0%   {left:5%;}
+	100% {left:0%;}
+}
+
+#background-line {
+	position:fixed;
+	background-color: black;
+	height: 2px;
+	width: 100%;
+	top: 50%;
+	margin: auto;
+	transform: rotate(30deg);
+	-ms-transform: rotate(30deg); /* IE 9 */
+	-webkit-transform:  translate(30%,0%) rotate(30deg); /* Safari and Chrome */
+
+	transform-origin: 50% 50%;
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	padding-right: 7px;
+	padding-left: 7px;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
+}
