@@ -185,12 +185,12 @@ p {
 }
 
 a {
-	color: #2A6EFF;
+	color: #4C21C2;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #0051FF;
+	color: #4C21C2;
 	text-decoration: underline;
 }
 
@@ -199,7 +199,7 @@ a:active {
 }
 
 .about-window:hover {
-	background-color: #2A6EFF;
+	background-color: #4C21C2;
 	font-size: 24px;
 	cursor: pointer;
 }
