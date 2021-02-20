@@ -1,6 +1,4 @@
-runtime: python27
-api_version: 1
-threadsafe: yes
+runtime: python37
 
 instance_class: F1
 automatic_scaling:
@@ -18,10 +16,5 @@ handlers:
   static_dir: scripts
 
 - url: .*
-  script: main.app
+  script: auto
 
-libraries:
-- name: jinja2
-  version: latest
-- name: webapp2
-  version: "2.5.2"
