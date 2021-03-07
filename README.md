@@ -22,6 +22,8 @@ Website is here: http://tamumu61.appspot.com
 
 # GCP Deployment
 ## Production
+* in `frontend/`, `npm run build` to update production build
+* make sure any pip requirements are updated
 * `gcloud app deploy --project <project_id>`
 * see `gcloud config list` for `project_id`
 

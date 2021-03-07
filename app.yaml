@@ -9,8 +9,12 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /manifest\.json
+  static_files: frontend/build/manifest.json
+  upload: frontend/build/manifest\.json
+
 - url: /static
-  static_dir: static
+  static_dir: frontend/build/static
 
 - url: /scripts
   static_dir: scripts

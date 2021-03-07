@@ -1,0 +1,31 @@
+# Test data
+from datetime import datetime
+
+games = [
+    {'_id': 0,
+     'name': 'Hitman Riddler\'s Race Course',
+     'status': 'IN_PROGRESS',
+     'players': ['Fordon'],
+     'date_added_utc': datetime.utcnow().isoformat(),
+    },
+    {'_id': 1,
+     'name': 'FFVI',
+     'status': 'IN_PROGRESS',
+     'players': ['Fumo'],
+    },
+    {'_id': 2,
+     'name': 'Nier Automata replay',
+     'status': 'IN_PROGRESS',
+     'players': ['Fordon'],
+    },
+    {'_id': 3,
+     'name': 'Borderlands 3',
+     'status': 'COMPLETED',
+     'players': ['Fumo', 'Fordon'],
+    },
+    {'_id': 4,
+     'name': 'Fire Emblem',
+     'status': 'NOT_STARTED',
+     'players': ['Fumo', 'Fordon'],
+    },
+]
