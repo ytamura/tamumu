@@ -16,9 +16,6 @@ handlers:
 - url: /static
   static_dir: frontend/build/static
 
-- url: /scripts
-  static_dir: scripts
-
 - url: .*
   script: auto
 

@@ -5,8 +5,8 @@ function About({ handleAboutClick }) {
       <br/>
       <h2>about:tamumu</h2>
       <p>
-      The portal is an attempt at updating my familiarity with html/css, to
-      which I first got exposed to in
+      2014: The portal is an attempt at updating my familiarity with html/css,
+      to which I first got exposed to in
       2002 <strike>(wow, <a href="http://web1.caryacademy.org/facultywebs/gray_rushin/StudentProjects/CompoundWebSites/2002/SodiumCyanide/default.htm"
         rel="noreferrer" target="_blank">it's still there</a>!)</strike>,
       back when frames were cool. Needless to say, I have a ton of catch up to
@@ -30,6 +30,8 @@ function About({ handleAboutClick }) {
       <p>'Til then,</p>
       <br/>
       <p>y</p>
+
+      <p>2021: flask+react refactor to add apps...</p>
 
       <div className="window about-window back-window" onClick={handleAboutClick}>
         <span className="category-title">back</span>

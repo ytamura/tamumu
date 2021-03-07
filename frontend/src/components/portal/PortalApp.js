@@ -6,9 +6,6 @@ function PortalApp() {
 	return (
 		<div className="portal">
 			{/*<head>
-				<title>port:tamumu</title>
-				<link type="text/css" rel="stylesheet" href="../static/style.css"/>
-				<link type="text/css" rel="stylesheet" href="../static/background.css"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta property="og:title" content="port:tamumu" />
 				<meta property="og:url" content="http://tamumu61.appspot.com" />
@@ -23,7 +20,6 @@ function PortalApp() {
 				ga('send', 'pageview');
 
 				</script>
-				<script src="/static/interaction.js"></script>
 			</head>*/}
 		  <div id="bg-line0" className="background-line"></div>
 			<div id="bg-line1" className="background-line"></div>

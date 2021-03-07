@@ -18,14 +18,20 @@ Website is here: http://tamumu61.appspot.com
 
 ## With venv activated, 
 * `python main.py`
+* If production frontend not built yet, in `frontend/`, `npm run build` to update production build
+* Go to flask server at localhost:8080 to use production build of frontend
+
+## For the frontend,
+* In `frontend/`, `npm start`
+* Go to front end at localhost:3000
 
 
 # GCP Deployment
 ## Production
-* in `frontend/`, `npm run build` to update production build
-* make sure any pip requirements are updated
+* In `frontend/`, `npm run build` to update production build
+* Make sure any pip requirements are updated
 * `gcloud app deploy --project <project_id>`
-* see `gcloud config list` for `project_id`
+* See `gcloud config list` for `project_id`
 
 ## Test Deployment
 * `gcloud app deploy --no-promote`

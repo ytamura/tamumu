@@ -8,7 +8,7 @@ import {
 import AgileList from './AgileList'
 import { endpoint } from '../../utils'
 
-function AgileApp() {
+function AgileApp({ admin }) {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
@@ -18,13 +18,13 @@ function AgileApp() {
     }).catch(error => {
       console.log(error);
     })
-  }, [endpoint])
+  }, [])
 
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Agile</Header>
       <p>Here's what we're playing:</p>
-      <AgileList games={games}></AgileList>
+      <AgileList games={games} admin={admin}/>
     </Container>
   );
 }

@@ -18,14 +18,24 @@ app.register_blueprint(api)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-# @app.route('/')
-# def root():
-#     return utils.render_str(".html")
-
-
 @app.route('/')
+def home():
+    return render_template('index.html', current_app='main')
+
+
+@app.route('/agile')
 def agile():
-    return render_template('index.html')
+    return render_template('index.html', current_app='agile')
+
+
+@app.route('/nihongo')
+def nihongo():
+    return render_template('index.html', current_app='nihongo')
+
+
+@app.route('/sudoku')
+def sudoku():
+    return render_template('index.html', current_app='sudoku')
 
 
 if __name__ == '__main__':
