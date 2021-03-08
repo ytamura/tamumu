@@ -33,6 +33,16 @@ function AgileApp({ admin }) {
     });
   }
 
+  function handleEditSubmit(game_id, new_game) {
+    setGames({
+      ...games,
+      [game_id] : {
+         ...new_game,
+         edit: false,
+      }
+    });
+  }
+
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Agile</Header>

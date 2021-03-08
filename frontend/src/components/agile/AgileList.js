@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 
 import AgileEdit from './AgileEdit';
-import { status_map } from './AgileConstants';
+import { statusMap } from './AgileConstants';
 
 
 function AgileList({ games, admin, handleEditClick }) {
@@ -12,32 +12,37 @@ function AgileList({ games, admin, handleEditClick }) {
     <div>
       <Table selectable>
         <Table.Body>
-          {Object.keys(games).map((game_key) =>
-            <>
-            <Table.Row key={game_key}>
-              <Table.Cell>
-                <Icon name={status_map[games[game_key].status].icon}
-                      color={status_map[games[game_key].status].color}/> {games[game_key].name}
-              </Table.Cell>
+          {Object.keys(games).map((game_key) => {
+            const _game = games[game_key];
 
-              <Table.Cell collapsing>
-                {games[game_key].players.sort().join(', ')}
-              </Table.Cell>
-
-              {admin &&
-                <Table.Cell collapsing>
-                  {games[game_key].edit ? <Icon name='edit' onClick={() => handleEditClick(game_key)}/> :
-                                          <Icon name='edit outline' onClick={() => handleEditClick(game_key)}/>}
+            return(
+              <>
+              <Table.Row key={game_key} active={_game.edit ? true : false}>
+                <Table.Cell>
+                  <Icon name={statusMap[_game.status].icon}
+                        color={statusMap[_game.status].color}/> {_game.name}
                 </Table.Cell>
-              }
-            </Table.Row>
-            {admin && games[game_key].edit &&
-              <Table.Row key={game_key + 'edit'}>
-               <Table.Cell>
-                <AgileEdit game={games[game_key]} />
-               </Table.Cell> 
-              </Table.Row>}
-            </>)
+
+                <Table.Cell collapsing>
+                  {_game.players.sort().join(', ')}
+                </Table.Cell>
+
+                {admin &&
+                  <Table.Cell collapsing>
+                    {_game.edit ? <Icon name='edit' onClick={() => handleEditClick(game_key)}/> :
+                                  <Icon name='edit outline' onClick={() => handleEditClick(game_key)}/>}
+                  </Table.Cell>
+                }
+              </Table.Row>
+
+              {admin && _game.edit &&
+                <Table.Row key={game_key + 'edit'}>
+                 <Table.Cell colspan={3}>
+                  <AgileEdit game={_game} />
+                 </Table.Cell>
+                </Table.Row>}
+              </>)
+            })
           }
         </Table.Body>
       </Table>

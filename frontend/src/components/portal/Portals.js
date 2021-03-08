@@ -7,8 +7,7 @@ function Portals() {
   const [showAbout, setShowAbout] = useState(false);
 
   function handleAboutClick() {
-    setShowAbout(!showAbout)
-    console.log('yes' + showAbout);
+    setShowAbout(!showAbout);
   }
 
 	return (

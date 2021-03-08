@@ -1,4 +1,4 @@
-export const status_map = {
+export const statusMap = {
   'NOT_STARTED': {'icon': 'exclamation circle',
                   'color': 'black'},
   'IN_PROGRESS': {'icon': 'game',
@@ -7,4 +7,4 @@ export const status_map = {
                 'color': 'green'},
 };
 
-export const all_players = [ 'Fordon', 'Fumo' ];
+export const allPlayers = [ 'Fordon', 'Fumo' ];

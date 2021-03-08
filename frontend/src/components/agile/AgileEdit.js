@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Form,
   Select,
@@ -5,14 +6,34 @@ import {
   Checkbox,
 } from 'semantic-ui-react';
 
-import { status_map, all_players } from './AgileConstants';
+import { statusMap, allPlayers } from './AgileConstants';
 
 
 function AgileEdit({ game }) {
-  const status_options = Object.keys(status_map).map(status => (
+  const [draftStatus, setDraftStatus] = useState(game.status);
+  const [draftName, setDraftName] = useState(game.name);
+  const [draftPlayers, setDraftPlayers] = useState(game.players);
+
+  const statusOptions = Object.keys(statusMap).map(status => (
     {key: status,
      text: status,
      value: status}))
+
+  function handleStatusChange(event) {
+    setDraftStatus(event.target.value);
+  }
+
+  function handleNameChange(event) {
+    setDraftName(event.target.value);
+  }
+
+  function handlePlayersChange(event, { value, checked }) {
+    if (checked && !draftPlayers.includes(value)) {
+      setDraftPlayers([...draftPlayers, value]);
+    } else if (!checked && draftPlayers.includes(value)) {
+      setDraftPlayers(draftPlayers.filter(item => item !== value));
+    }
+  }
 
   return (
     <Form>
@@ -21,23 +42,27 @@ function AgileEdit({ game }) {
           control={Select}
           compact
           label='Status'
-          options={status_options}
-          placeholder={game.status}
+          options={statusOptions}
+          value={draftStatus}
+          onChange={handleStatusChange}
         />
         <Form.Field
           control={Input}
           label='Game'
-          placeholder={game.name}
+          value={draftName}
           width={10}
+          onChange={handleNameChange}
         />
         <Form.Group grouped>
           <label>Player(s)</label>
-          {all_players.map((player) => (
+          {allPlayers.map((player) => (
             <Form.Field
               key={player}
               control={Checkbox}
               label={player}
-              checked={game.players.includes(player)}
+              value={player}
+              checked={draftPlayers.includes(player)}
+              onChange={handlePlayersChange}
             />
           ))}
         </Form.Group>
