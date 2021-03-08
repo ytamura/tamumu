@@ -48,7 +48,8 @@ function AgileApp({ admin }) {
       <Header as='h1'>Agile</Header>
       <p>Here's what we're playing:</p>
       <AgileList games={games} admin={admin}
-                 handleEditClick={handleEditClick}/>
+                 handleEditClick={handleEditClick}
+                 handleEditSubmit={handleEditSubmit}/>
     </Container>
   );
 }

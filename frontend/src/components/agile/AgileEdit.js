@@ -4,12 +4,13 @@ import {
   Select,
   Input,
   Checkbox,
+  Button,
 } from 'semantic-ui-react';
 
 import { statusMap, allPlayers } from './AgileConstants';
 
 
-function AgileEdit({ game }) {
+function AgileEdit({ game, handleEditSubmit, isNew }) {
   const [draftStatus, setDraftStatus] = useState(game.status);
   const [draftName, setDraftName] = useState(game.name);
   const [draftPlayers, setDraftPlayers] = useState(game.players);
@@ -19,8 +20,8 @@ function AgileEdit({ game }) {
      text: status,
      value: status}))
 
-  function handleStatusChange(event) {
-    setDraftStatus(event.target.value);
+  function handleStatusChange(event, { value }) {
+    setDraftStatus(value);
   }
 
   function handleNameChange(event) {
@@ -35,8 +36,16 @@ function AgileEdit({ game }) {
     }
   }
 
+  function handleSubmitClicked(event) {
+    handleEditSubmit(game._id,
+                     {_id: game._id,
+                      name: draftName,
+                      status: draftStatus,
+                      players: draftPlayers});
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmitClicked}>
       <Form.Group>
         <Form.Field
           control={Select}
@@ -67,6 +76,10 @@ function AgileEdit({ game }) {
           ))}
         </Form.Group>
       </Form.Group>
+      <Button type='button' icon='trash' />
+      <Button type='submit' floated='right' positive>Save</Button>
+      <Button type='button' icon='triangle up' floated='right' />
+      <Button type='button' icon='triangle down' floated='right' />
     </Form>
   )
 }

@@ -7,7 +7,7 @@ import AgileEdit from './AgileEdit';
 import { statusMap } from './AgileConstants';
 
 
-function AgileList({ games, admin, handleEditClick }) {
+function AgileList({ games, admin, handleEditClick, handleEditSubmit }) {
   return (
     <div>
       <Table selectable>
@@ -37,8 +37,9 @@ function AgileList({ games, admin, handleEditClick }) {
 
               {admin && _game.edit &&
                 <Table.Row key={game_key + 'edit'}>
-                 <Table.Cell colspan={3}>
-                  <AgileEdit game={_game} />
+                 <Table.Cell colSpan={3}>
+                  <AgileEdit game={_game} handleEditSubmit={handleEditSubmit}
+                             isNew={false}/>
                  </Table.Cell>
                 </Table.Row>}
               </>)
