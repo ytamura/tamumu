@@ -1,6 +1,9 @@
 # port:tamumu
-Ran on Google App Engine, migrated to GCP
-My exploration of modern HTML/CSS. Images are all hosted on deviantART at http://tamumu61.deviantart.com. Nothing fancy here.
+* 2014: exploration of "modern" HTML/CSS
+* 2016: actual domain use
+* 2020: Google App Engine to Google Cloud Platform migration
+* 2021: python 3 upgrade, flask migration, react frontend
+Images are all hosted on deviantART at http://tamumu61.deviantart.com. Nothing fancy here.
 
 Website is here: http://tamumu61.appspot.com
 

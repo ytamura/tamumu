@@ -87,13 +87,13 @@
 
     #tag-line {
     	top: 0% !important;
-    	margin-top: 0px !important;
+    	margin-top: 50px !important;
     	z-index: 2;
     }
 
     #profile-links {
     	top: 0% !important;
-    	margin-top: 50px !important;
+    	margin-top: 100px !important;
     	background-color: white;
     }
 

@@ -15,7 +15,7 @@ function About({ handleAboutClick }) {
       </p>
 
       <p>At the same time, it's been a good motivator to update my "portfolio"
-      of a wide variety of "artwork" I've collected over the times. It's all
+      of a wide variety of "artwork" I've created over the times. It's all
       over the place in terms of quality, media, and age!
       </p>
 
@@ -24,7 +24,7 @@ function About({ handleAboutClick }) {
       on my deviantART <a href="http://tamumu61.deviantart.com/gallery/"
         rel="noreferrer" target="_blank">gallery</a>, which by the way, is a
         bit painful to navigate. There will be a day when all that stuff will
-        be presentedneatly on this site...
+        be presented neatly on this site...
       </p>
 
       <p>'Til then,</p>

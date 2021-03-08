@@ -79,7 +79,7 @@ body {
     .portal .big-window {
     	top: 50px;
     	left: 0px;
-    	margin-top: 0px;
+    	margin-top: 100px;
 		margin-left: 0px;
 		z-index: 0;
 
@@ -99,7 +99,7 @@ body {
     	position: static;
     	width: 340px;
     	height: 680px;
-    	margin:50px auto 0px auto;
+    	margin: 50px auto 0px auto;
     }
 
     .portal .about-window {
@@ -107,7 +107,7 @@ body {
     }
 
     #portal-view {
-    	margin-top: 90px;
+    	margin-top: 150px;
     }
 
     #about-view {

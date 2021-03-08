@@ -1,35 +1,44 @@
 import {
   Icon,
   Table,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
-function AgileList({ games, admin }) {
-  const icon_map = {'NOT_STARTED': 'exclamation circle',
-                    'IN_PROGRESS': 'game',
-                    'COMPLETED': 'check circle',}
-  const color_map = {'NOT_STARTED': 'black',
-                     'IN_PROGRESS': 'orange',
-                     'COMPLETED': 'green',}
+import AgileEdit from './AgileEdit';
+import { status_map } from './AgileConstants';
 
+
+function AgileList({ games, admin, handleEditClick }) {
   return (
     <div>
       <Table selectable>
         <Table.Body>
-          {games.map(game =>
-            <Table.Row key={game._id}>
+          {Object.keys(games).map((game_key) =>
+            <>
+            <Table.Row key={game_key}>
               <Table.Cell>
-                <Icon name={icon_map[game.status]}
-                      color={color_map[game.status]}/> {game.name}
+                <Icon name={status_map[games[game_key].status].icon}
+                      color={status_map[games[game_key].status].color}/> {games[game_key].name}
               </Table.Cell>
+
               <Table.Cell collapsing>
-                {game.players.sort().join(', ')}
+                {games[game_key].players.sort().join(', ')}
               </Table.Cell>
+
               {admin &&
                 <Table.Cell collapsing>
-                  <Icon name='edit outline'/>
+                  {games[game_key].edit ? <Icon name='edit' onClick={() => handleEditClick(game_key)}/> :
+                                          <Icon name='edit outline' onClick={() => handleEditClick(game_key)}/>}
                 </Table.Cell>
               }
-            </Table.Row>)}
+            </Table.Row>
+            {admin && games[game_key].edit &&
+              <Table.Row key={game_key + 'edit'}>
+               <Table.Cell>
+                <AgileEdit game={games[game_key]} />
+               </Table.Cell> 
+              </Table.Row>}
+            </>)
+          }
         </Table.Body>
       </Table>
     </div>
