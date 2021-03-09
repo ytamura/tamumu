@@ -54,6 +54,12 @@ function AgileApp({ admin }) {
     setShowAddForm(!showAddForm);
   }
 
+  function handleDelete(gameId) {
+    let _games = {...games};
+    delete _games[gameId];
+    setGames(_games);
+  }
+
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Agile</Header>
@@ -69,14 +75,18 @@ function AgileApp({ admin }) {
           <Grid.Row columns={1}>
             <Grid.Column>
               <AgileEdit game={{}} handleEditSubmit={handleEditSubmit}
-                         isNew={true}/>
+                         handleDelete={null}/>
             </Grid.Column>
           </Grid.Row>}
       </Grid>
 
       <AgileList games={games} admin={admin}
                  handleEditClick={handleEditClick}
-                 handleEditSubmit={handleEditSubmit}/>
+                 handleEditSubmit={handleEditSubmit}
+                 handleDelete={handleDelete}/>
+      {Object.keys(games).length === 0 &&
+        <Header as='h3'><i>Oh no! Nothing in the queue!</i></Header>
+      }
     </Container>
   );
 }

@@ -10,8 +10,11 @@ import {
 import { statusMap, allPlayers } from './AgileConstants';
 
 
-function AgileEdit({ game, handleEditSubmit, isNew }) {
+function AgileEdit({ game, handleEditSubmit, handleDelete }) {
+  const isNew = handleDelete === null;
+  const gameId = isNew ? new Date().getTime() : game._id;
   const statusList = Object.keys(statusMap);
+
   const [draftStatus, setDraftStatus] =
     useState(isNew ? statusList[0] : game.status);
   const [draftName, setDraftName] = useState(isNew ? '' : game.name);
@@ -60,7 +63,6 @@ function AgileEdit({ game, handleEditSubmit, isNew }) {
       pass = false;
     }
     if (pass) {
-      const gameId = isNew ? new Date().getTime() : game._id;
       handleEditSubmit(gameId,
                        {_id: gameId,
                         name: draftName,
@@ -112,7 +114,8 @@ function AgileEdit({ game, handleEditSubmit, isNew }) {
       <Button type='submit' floated='right' positive>Save</Button>
       {!isNew && 
         <>
-          <Button type='button' icon='trash' />
+          <Button type='button' icon='trash'
+                  onClick={() => handleDelete(gameId)} />
           <Button type='button' icon='triangle up' floated='right' />
           <Button type='button' icon='triangle down' floated='right' />
         </>}
