@@ -2,14 +2,18 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Container,
-  Header
+  Grid,
+  Header,
+  Icon,
 } from 'semantic-ui-react';
 
-import AgileList from './AgileList'
-import { endpoint } from '../../utils'
+import AgileList from './AgileList';
+import AgileEdit from './AgileEdit';
+import { endpoint } from '../../utils';
 
 function AgileApp({ admin }) {
   const [games, setGames] = useState({});
+  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     axios.get(endpoint + 'api/agile/games').then(response => {
@@ -23,30 +27,53 @@ function AgileApp({ admin }) {
     })
   }, []);
 
-  function handleEditClick(game_id) {
+  function handleEditClick(gameId) {
     setGames({
       ...games,
-      [game_id] : {
-         ...games[game_id],
-         edit: !games[game_id].edit,
+      [gameId] : {
+         ...games[gameId],
+         edit: !games[gameId].edit,
       }
     });
   }
 
-  function handleEditSubmit(game_id, new_game) {
+  function handleEditSubmit(gameId, newGame) {
+    if (!(gameId in games)) {
+      setShowAddForm(false);
+    }
     setGames({
       ...games,
-      [game_id] : {
-         ...new_game,
+      [gameId] : {
+         ...newGame,
          edit: false,
       }
     });
   }
 
+  function handleAddClick() {
+    setShowAddForm(!showAddForm);
+  }
+
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Agile</Header>
-      <p>Here's what we're playing:</p>
+      <Grid padded='vertically'>
+        <Grid.Row columns={2}>
+          <Grid.Column><p>Here's what we're playing:</p></Grid.Column>
+          <Grid.Column textAlign='right'>
+            {admin && <Icon name={showAddForm ? 'remove circle' : 'add circle'}
+                            size='large' link onClick={handleAddClick}/>}
+          </Grid.Column>
+        </Grid.Row>
+        {showAddForm &&
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <AgileEdit game={{}} handleEditSubmit={handleEditSubmit}
+                         isNew={true}/>
+            </Grid.Column>
+          </Grid.Row>}
+      </Grid>
+
       <AgileList games={games} admin={admin}
                  handleEditClick={handleEditClick}
                  handleEditSubmit={handleEditSubmit}/>

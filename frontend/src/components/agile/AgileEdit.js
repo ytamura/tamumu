@@ -11,21 +11,29 @@ import { statusMap, allPlayers } from './AgileConstants';
 
 
 function AgileEdit({ game, handleEditSubmit, isNew }) {
-  const [draftStatus, setDraftStatus] = useState(game.status);
-  const [draftName, setDraftName] = useState(game.name);
-  const [draftPlayers, setDraftPlayers] = useState(game.players);
+  const statusList = Object.keys(statusMap);
+  const [draftStatus, setDraftStatus] =
+    useState(isNew ? statusList[0] : game.status);
+  const [draftName, setDraftName] = useState(isNew ? '' : game.name);
+  const [draftPlayers, setDraftPlayers] = useState(isNew ? [] : game.players);
+  const [nameError, setNameError] = useState(false);
+  const [statusError, setStatusError] = useState(false);
+  const [playersError, setPlayersError] = useState(false);
 
-  const statusOptions = Object.keys(statusMap).map(status => (
+  const statusOptions = statusList.map(status => (
     {key: status,
      text: status,
      value: status}))
 
   function handleStatusChange(event, { value }) {
     setDraftStatus(value);
+    setStatusError(false);
   }
 
   function handleNameChange(event) {
-    setDraftName(event.target.value);
+    const value = event.target.value;
+    setDraftName(value);
+    setNameError(value.length === 0);
   }
 
   function handlePlayersChange(event, { value, checked }) {
@@ -34,14 +42,31 @@ function AgileEdit({ game, handleEditSubmit, isNew }) {
     } else if (!checked && draftPlayers.includes(value)) {
       setDraftPlayers(draftPlayers.filter(item => item !== value));
     }
+    setPlayersError(false);
   }
 
   function handleSubmitClicked(event) {
-    handleEditSubmit(game._id,
-                     {_id: game._id,
-                      name: draftName,
-                      status: draftStatus,
-                      players: draftPlayers});
+    let pass = true;
+    if (draftName.length === 0) {
+      setNameError(true);
+      pass = false;
+    }
+    if (draftPlayers.length === 0) {
+      setPlayersError(true);
+      pass = false;
+    }
+    if (!statusList.includes(draftStatus)) {
+      setStatusError(true);
+      pass = false;
+    }
+    if (pass) {
+      const gameId = isNew ? new Date().getTime() : game._id;
+      handleEditSubmit(gameId,
+                       {_id: gameId,
+                        name: draftName,
+                        status: draftStatus,
+                        players: draftPlayers});
+    }
   }
 
   return (
@@ -49,18 +74,24 @@ function AgileEdit({ game, handleEditSubmit, isNew }) {
       <Form.Group>
         <Form.Field
           control={Select}
-          compact
+          width={4} compact
           label='Status'
           options={statusOptions}
           value={draftStatus}
           onChange={handleStatusChange}
+          error={statusError}
         />
         <Form.Field
           control={Input}
           label='Game'
           value={draftName}
           width={10}
+          maxLength={57}
           onChange={handleNameChange}
+          error={nameError && {
+            content: 'Please enter a valid game title',
+            pointing: 'above',
+          }}
         />
         <Form.Group grouped>
           <label>Player(s)</label>
@@ -72,14 +103,19 @@ function AgileEdit({ game, handleEditSubmit, isNew }) {
               value={player}
               checked={draftPlayers.includes(player)}
               onChange={handlePlayersChange}
+              error={playersError}
             />
           ))}
         </Form.Group>
       </Form.Group>
-      <Button type='button' icon='trash' />
+
       <Button type='submit' floated='right' positive>Save</Button>
-      <Button type='button' icon='triangle up' floated='right' />
-      <Button type='button' icon='triangle down' floated='right' />
+      {!isNew && 
+        <>
+          <Button type='button' icon='trash' />
+          <Button type='button' icon='triangle up' floated='right' />
+          <Button type='button' icon='triangle down' floated='right' />
+        </>}
     </Form>
   )
 }
