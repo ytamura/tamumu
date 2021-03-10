@@ -22,9 +22,6 @@ venv/
 \#*.*
 *.*~
 
-# Ignore everything in .gitignore
-#!include:.gitignore
-
 node_modules/
 /.pnp
 .pnp.js

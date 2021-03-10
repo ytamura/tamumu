@@ -9,11 +9,14 @@ import {
 
 import AgileList from './AgileList';
 import AgileEdit from './AgileEdit';
-import { endpoint } from '../../utils';
+import AgileLogin from './AgileLogin';
+import { statusGroups } from './AgileConstants';
+import { endpoint, filterObject } from '../../utils';
 
-function AgileApp({ admin }) {
+function AgileApp() {
   const [games, setGames] = useState({});
   const [showAddForm, setShowAddForm] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     axios.get(endpoint + 'api/agile/games').then(response => {
@@ -54,6 +57,17 @@ function AgileApp({ admin }) {
     setShowAddForm(!showAddForm);
   }
 
+  function handleLogin(password, handlePasswordResult) {
+    axios.post(endpoint + 'api/agile/login',
+               { 'password': password }).then(response => {
+      console.log(response.data);
+      handlePasswordResult(response.data);
+    }).catch(error => {
+      console.log(error);
+      return(false);
+    })
+  }
+
   function handleDelete(gameId) {
     let _games = {...games};
     delete _games[gameId];
@@ -69,6 +83,8 @@ function AgileApp({ admin }) {
           <Grid.Column textAlign='right'>
             {admin && <Icon name={showAddForm ? 'remove circle' : 'add circle'}
                             size='large' link onClick={handleAddClick}/>}
+            <AgileLogin admin={admin} handleLogin={handleLogin}
+                        setAdmin={setAdmin}/>
           </Grid.Column>
         </Grid.Row>
         {showAddForm &&
@@ -80,10 +96,16 @@ function AgileApp({ admin }) {
           </Grid.Row>}
       </Grid>
 
-      <AgileList games={games} admin={admin}
-                 handleEditClick={handleEditClick}
-                 handleEditSubmit={handleEditSubmit}
-                 handleDelete={handleDelete}/>
+      {statusGroups.map(group =>
+        <>
+        <Header as='h3'>{group.heading}</Header>
+        <AgileList games={filterObject(games, 'status', group.statuses)}
+                   admin={admin}
+                   handleEditClick={handleEditClick}
+                   handleEditSubmit={handleEditSubmit}
+                   handleDelete={handleDelete}/>
+        </>
+      )}
       {Object.keys(games).length === 0 &&
         <Header as='h3'><i>Oh no! Nothing in the queue!</i></Header>
       }
