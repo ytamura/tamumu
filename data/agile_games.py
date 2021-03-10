@@ -1,12 +1,12 @@
 # Test data
 from datetime import datetime
 
+
 games = [
     {'_id': 0,
      'name': 'Hitman Riddler\'s Race Course',
      'status': 'IN_PROGRESS',
      'players': ['Fordon'],
-     'date_added_utc': datetime.utcnow().isoformat(),
     },
     {'_id': 1,
      'name': 'FFVI',
@@ -25,7 +25,17 @@ games = [
     },
     {'_id': 4,
      'name': 'Fire Emblem',
-     'status': 'NOT_STARTED',
+     'status': 'BACKLOG',
+     'players': ['Fumo', 'Fordon'],
+    },
+    {'_id': 5,
+     'name': 'Sakuna',
+     'status': 'IN_WISHLIST',
+     'players': ['Fumo'],
+    },
+    {'_id': 6,
+     'name': 'Starbound',
+     'status': 'WONT_FINISH',
      'players': ['Fumo', 'Fordon'],
     },
 ]

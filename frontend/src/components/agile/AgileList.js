@@ -30,8 +30,11 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
 
                 {admin &&
                   <Table.Cell collapsing>
-                    {_game.edit ? <Icon name='edit' onClick={() => handleEditClick(game_key)}/> :
-                                  <Icon name='edit outline' onClick={() => handleEditClick(game_key)}/>}
+                    {_game.edit ?
+                      <Icon name='edit' link
+                            onClick={() => handleEditClick(game_key)}/> :
+                      <Icon name='edit outline' link
+                            onClick={() => handleEditClick(game_key)}/>}
                   </Table.Cell>
                 }
               </Table.Row>

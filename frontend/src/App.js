@@ -38,9 +38,6 @@ function App() {
       </Menu>
 
       <Switch>
-        <Route path="/agile/admin">
-          <AgileApp admin={true}/>
-        </Route>
         <Route path="/agile">
           <AgileApp />
         </Route>

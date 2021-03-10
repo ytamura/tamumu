@@ -28,19 +28,24 @@ function PortalApp() {
       <div id="profile-links">
         <ul>
           <li>
-            <a href="http://www.linkedin.com/in/ytamura" rel="noreferrer" target="_blank">linkedin</a>
+            <a href="http://www.linkedin.com/in/ytamura" rel="noreferrer"
+               target="_blank">linkedin</a>
           </li>
           <li>
-            <a href="http://www.quora.com/Yuriko-Tamura" rel="noreferrer" target="_blank">quora</a>
+            <a href="http://www.quora.com/Yuriko-Tamura" rel="noreferrer"
+               target="_blank">quora</a>
           </li>
           <li>
-            <a href="http://tamumu61.deviantart.com/gallery/" rel="noreferrer" target="_blank">deviantART</a>
+            <a href="http://tamumu61.deviantart.com/gallery/" rel="noreferrer"
+               target="_blank">deviantART</a>
           </li>
         </ul>
       </div>
       
       <Portals/>
-      <div id="footer"><small>©2021 port:tamumu. All rights reserved.</small></div>
+      <div id="footer">
+        <small>©2021 port:tamumu. All rights reserved.</small>
+      </div>
     </div>
   );
 }
