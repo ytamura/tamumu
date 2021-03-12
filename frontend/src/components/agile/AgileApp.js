@@ -41,20 +41,25 @@ function AgileApp() {
   }
 
   function handleEditSubmit(gameId, newGame) {
-    if (!(gameId in games)) {
-      setShowAddForm(false);
-    }
-    setGames({
-      ...games,
-      [gameId] : {
-         ...newGame,
-         edit: false,
+    // New or Update
+    axios.post(endpoint + 'api/agile/update_game',
+               { ...newGame }).then(response => {
+      console.log(response.data);
+      if (response.data === 'updated') {
+        setGames({
+          ...games,
+          [gameId] : {
+             ...newGame,
+             edit: false,
+          }
+        });
+        if (!(gameId in games)) {
+          setShowAddForm(false);
+        }
       }
-    });
-  }
-
-  function handleAddClick() {
-    setShowAddForm(!showAddForm);
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
   function handleLogin(password, handlePasswordResult) {
@@ -64,7 +69,6 @@ function AgileApp() {
       handlePasswordResult(response.data);
     }).catch(error => {
       console.log(error);
-      return(false);
     })
   }
 
@@ -82,7 +86,8 @@ function AgileApp() {
           <Grid.Column><p>Here's what we're playing:</p></Grid.Column>
           <Grid.Column textAlign='right'>
             {admin && <Icon name={showAddForm ? 'remove circle' : 'add circle'}
-                            size='large' link onClick={handleAddClick}/>}
+                            size='large' link
+                            onClick={() => setShowAddForm(!showAddForm)}/>}
             <AgileLogin admin={admin} handleLogin={handleLogin}
                         setAdmin={setAdmin}/>
           </Grid.Column>
@@ -98,12 +103,12 @@ function AgileApp() {
 
       {statusGroups.map(group =>
         <>
-        <Header as='h3'>{group.heading}</Header>
-        <AgileList games={filterObject(games, 'status', group.statuses)}
-                   admin={admin}
-                   handleEditClick={handleEditClick}
-                   handleEditSubmit={handleEditSubmit}
-                   handleDelete={handleDelete}/>
+          <Header as='h3'>{group.heading}</Header>
+          <AgileList games={filterObject(games, 'status', group.statuses)}
+                     admin={admin}
+                     handleEditClick={handleEditClick}
+                     handleEditSubmit={handleEditSubmit}
+                     handleDelete={handleDelete}/>
         </>
       )}
       {Object.keys(games).length === 0 &&

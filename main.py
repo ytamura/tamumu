@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-#
+'''
+Run first:
+    $(gcloud beta emulators datastore env-init)
+ytamura
+'''
 import os
 import string
 import logging

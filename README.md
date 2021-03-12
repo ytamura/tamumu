@@ -16,10 +16,11 @@ Website is here: http://tamumu61.appspot.com
 # Testing Locally
 ## Initial setup
 * Create virtual environment: `python -m venv venv`
-* Activate: `. venv/bin/activate`
 * Install dependencies `pip install -r requirements.txt`
+* To use datastore emulator, install JDK
 
-## With venv activated, 
+## With venv activated with e.g. `. venv/bin/activate`,
+* Set environment variables for datastore emulator: `$(gcloud beta emulators datastore env-init)`
 * `python main.py`
 * If production frontend not built yet, in `frontend/`, `npm run build` to update production build
 * Go to flask server at localhost:8080 to use production build of frontend
@@ -28,6 +29,9 @@ Website is here: http://tamumu61.appspot.com
 * In `frontend/`, `npm start`
 * Go to front end at localhost:3000
 
+## For datastore emulator
+* `gcloud beta emulators datastore start` with optionally `--no-store-on-disk`
+* Use `data/datastore_script.py` to manipulate/view data
 
 # GCP Deployment
 ## Production
