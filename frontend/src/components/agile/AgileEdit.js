@@ -67,7 +67,7 @@ function AgileEdit({ game, handleEditSubmit, handleDelete }) {
                        {_id: gameId,
                         name: draftName,
                         status: draftStatus,
-                        players: draftPlayers});
+                        players: draftPlayers},);
     }
   }
 

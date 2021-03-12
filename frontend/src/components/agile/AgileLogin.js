@@ -18,10 +18,6 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
     setPasswordError(false);
   }
 
-  function handlePasswordSubmit() {
-    handleLogin(draftPassword, handlePasswordResult);
-  }
-
   function handlePasswordResult(success) {
     if (success) {
         setAdmin(true);
@@ -65,7 +61,7 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
             <Button
               content="OK"
               icon='checkmark'
-              onClick={handlePasswordSubmit}
+              onClick={() => handleLogin(draftPassword, handlePasswordResult)}
               positive
               type='submit'
             />

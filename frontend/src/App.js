@@ -9,10 +9,10 @@ import {
   Dropdown,
   Menu,
   Header,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
-import PortalApp from './components/portal/PortalApp'
-import AgileApp from './components/agile/AgileApp'
+import PortalApp from './components/portal/PortalApp';
+import AgileApp from './components/agile/AgileApp';
 
 
 function App() {
