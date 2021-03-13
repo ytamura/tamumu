@@ -28,9 +28,6 @@ function PortalApp() {
       </div>
       
       <Portals/>
-      <div id="footer">
-        <small>©2021 port:tamumu. All rights reserved.</small>
-      </div>
     </div>
   );
 }

@@ -55,6 +55,9 @@ function App() {
           <PortalApp />
         </Route>
       </Switch>
+      <div id="footer">
+        <small>©2021 port:tamumu. All rights reserved.</small>
+      </div>
     </Router>
   );
 }

@@ -18,6 +18,7 @@ Website is here: http://tamumu61.appspot.com
 * Create virtual environment: `python -m venv venv`
 * Install dependencies `pip install -r requirements.txt`
 * To use datastore emulator, install JDK
+* Create a config.py with ADMIN_HASH=<your_hash>
 
 ## With venv activated with e.g. `. venv/bin/activate`,
 * Set environment variables for datastore emulator: `$(gcloud beta emulators datastore env-init)`
