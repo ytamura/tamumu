@@ -23,13 +23,15 @@ client = datastore.Client()
 @api.route('/api/agile/games')
 def get_all_games():
     print('fetching games')
-    query = client.query(kind="Game")
-    results = list(query.fetch())
-    for result in results:
-        result['_id'] = result.key.id
-    print(len(results))
-    print(results)
-    return jsonify(results)
+    try:
+        query = client.query(kind="Game")
+        results = list(query.fetch())
+        for result in results:
+            result['_id'] = result.key.id
+        return jsonify(results)
+    except Exception as e:
+        print('Get all games failed: {}'.format(e))
+        return jsonify(str(e)), 400
 
 
 @api.route('/api/agile/update_game', methods=['POST'])
@@ -51,7 +53,7 @@ def update_game():
         return 'updated'
     except Exception as e:
         print('Update failed: {}'.format(e))
-        return jsonify(e), 400
+        return jsonify(str(e)), 400
 
 
 @api.route('/api/agile/delete_game', methods=['POST'])
@@ -64,7 +66,7 @@ def delete_game():
         return 'deleted'
     except Exception as e:
         print('Deletion failed: {}'.format(e))
-        return jsonify(e), 400
+        return jsonify(str(e)), 400
 
 
 @api.route('/api/agile/login', methods=['POST'])

@@ -5,6 +5,8 @@ import {
   Grid,
   Header,
   Icon,
+  Message,
+  Loader, Segment,
 } from 'semantic-ui-react';
 
 import AgileList from './AgileList';
@@ -17,16 +19,26 @@ function AgileApp() {
   const [games, setGames] = useState({});
   const [showAddForm, setShowAddForm] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get(endpoint + 'api/agile/games').then(response => {
       console.log("Loaded games");
-      let _games = response.data;
-      _games.map((game) => (game['edit'] = false));
-      _games = _games.reduce((a, x) => ({...a, [x._id]: x}), {})
-      setGames(_games);
-    }).catch(error => {
-      console.log(error);
+      if (response.status === 200) {
+        let _games = response.data;
+        _games.map((game) => (game['edit'] = false));
+        _games = _games.reduce((a, x) => ({...a, [x._id]: x}), {})
+        setGames(_games);
+        setError('');
+      } else {
+        setError('Error retrieving games: ' + response.data.toString())
+      }
+      setLoading(false);
+    }).catch(_error => {
+      console.log(_error);
+      setError(_error.toString());
+      setLoading(false);
     })
   }, []);
 
@@ -53,34 +65,59 @@ function AgileApp() {
              edit: false,
           }
         });
+        setError('');
         if (!(gameId in games)) {
           setShowAddForm(false);
         }
+      } else {
+        setError('Error updating ' + newGame.name + '\n' +
+                 response.data.toString());
       }
-    }).catch(error => {
-      console.log(error);
+    }).catch(_error => {
+      console.log(_error);
+      setError(_error.toString());
     })
   }
 
   function handleLogin(password, handlePasswordResult) {
     axios.post(endpoint + 'api/agile/login',
                { 'password': password }).then(response => {
-      console.log(response.data);
       handlePasswordResult(response.data);
-    }).catch(error => {
-      console.log(error);
+      setError('');
+    }).catch(_error => {
+      console.log(_error);
+      setError(_error.toString());
     })
   }
 
   function handleDelete(gameId) {
-    let _games = {...games};
-    delete _games[gameId];
-    setGames(_games);
+    axios.post(endpoint + 'api/agile/delete_game',
+               {_id: gameId}).then(response => {
+      console.log(response.data);
+      if (response.data === 'deleted') {
+        let _games = {...games};
+        delete _games[gameId];
+        setGames(_games);
+        setError('');
+      } else {
+        setError('Error deleting ' + games[gameId].name + '\n' +
+                 response.data.toString());
+      }
+    }).catch(_error => {
+      console.log(_error);
+      setError(_error.toString());
+    })
+  }
+
+  function handleLock(toBeLocked) {
+    setAdmin(!toBeLocked);
+    setShowAddForm(false);
   }
 
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Agile</Header>
+      {error && <Message negative>{error}</Message>}
       <Grid padded='vertically'>
         <Grid.Row columns={2}>
           <Grid.Column><p>Here's what we're playing:</p></Grid.Column>
@@ -89,7 +126,7 @@ function AgileApp() {
                             size='large' link
                             onClick={() => setShowAddForm(!showAddForm)}/>}
             <AgileLogin admin={admin} handleLogin={handleLogin}
-                        setAdmin={setAdmin}/>
+                        handleLock={handleLock}/>
           </Grid.Column>
         </Grid.Row>
         {showAddForm &&
@@ -104,16 +141,20 @@ function AgileApp() {
       {statusGroups.map(group =>
         <>
           <Header as='h3'>{group.heading}</Header>
-          <AgileList games={filterObject(games, 'status', group.statuses)}
-                     admin={admin}
-                     handleEditClick={handleEditClick}
-                     handleEditSubmit={handleEditSubmit}
-                     handleDelete={handleDelete}/>
+          {loading ? <Segment padded><Loader active /></Segment> :
+           <AgileList key={group.heading}
+                      games={filterObject(games, 'status', group.statuses)}
+                      admin={admin}
+                      handleEditClick={handleEditClick}
+                      handleEditSubmit={handleEditSubmit}
+                      handleDelete={handleDelete}/>
+          }
         </>
       )}
-      {Object.keys(games).length === 0 &&
+      {Object.keys(games).length === 0 && !loading &&
         <Header as='h3'><i>Oh no! Nothing in the queue!</i></Header>
       }
+      <br/>
     </Container>
   );
 }
