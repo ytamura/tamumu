@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react';
 
 
-function AgileLogin({ admin, setAdmin, handleLogin }) {
+function AgileLogin({ admin, handleLock, handleLogin }) {
   const [open, setOpen] = useState(false);
   const [draftPassword, setDraftPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -20,7 +20,7 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
 
   function handlePasswordResult(success) {
     if (success) {
-        setAdmin(true);
+        handleLock(false);
         setDraftPassword('');
         setOpen(false);
     } else {
@@ -32,7 +32,8 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
   return (
     <>
       {admin ?
-        <Icon name='unlock' link onClick={() => setAdmin(false)} /> :
+        <Icon name='unlock' size='large' link
+              onClick={() => handleLock(true)} /> :
         <Modal
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
@@ -42,16 +43,16 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
         >
           <Modal.Header>Secret phrase, please:</Modal.Header>
           <Modal.Content>
-            <Form>
+            <Form id='pw-form'>
               <Form.Field
-              error={passwordError}
-              control={Input}
-              value={draftPassword}
-              width={12}
-              type='password'
-              maxLength={40}
-              onChange={handlePasswordChange}
-            />
+                error={passwordError}
+                control={Input}
+                value={draftPassword}
+                width={12}
+                type='password'
+                maxLength={40}
+                onChange={handlePasswordChange}
+              />
             </Form>
           </Modal.Content>
           <Modal.Actions>
@@ -64,6 +65,7 @@ function AgileLogin({ admin, setAdmin, handleLogin }) {
               onClick={() => handleLogin(draftPassword, handlePasswordResult)}
               positive
               type='submit'
+              form='pw-form'
             />
           </Modal.Actions>
         </Modal>
