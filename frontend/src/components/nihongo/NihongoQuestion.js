@@ -4,29 +4,29 @@ import {
   Button,
   Header,
   Icon,
-  Grid,
 } from 'semantic-ui-react';
 
 
-function NihongoQuestion({ word, handleNextWord, addPoint }) {
+function NihongoQuestion({ word, handleNextWord, handleResult }) {
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
 
   function assessAnswer(answer) {
     setAnswered(true);
-    if (word.correct.includes(answer.option)) {
-      setCorrect(true);
-      addPoint();
-      handleNextWord(setAnswered);
-    } else {
-      setCorrect(false);
-      handleNextWord(setAnswered);
-    }
+    const isCorrect = word.correct.includes(answer.option);
+
+    setCorrect(isCorrect);
+    handleResult(isCorrect);
+    setTimeout(() => {
+      handleNextWord(isCorrect);
+      setAnswered(false);
+    }, 2000);
   }
 
   return (
     <Segment padded='very'>
-      <Header size='huge' color='violet'>{word.word}</Header>
+      <p>Choose the answer that makes the most sense as a standalone word.</p>
+      <Header style={{fontSize: '50px'}} color='violet'>{word.word}</Header>
 
       {word.all_options.map((option) => (
         <Button key={option}

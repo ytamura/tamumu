@@ -6,6 +6,7 @@ import {
   Message,
   Loader,
   Label,
+  Icon,
 } from 'semantic-ui-react';
 
 import NihongoQuestion from './NihongoQuestion'
@@ -16,6 +17,7 @@ function NihongoApp() {
   const [words, setWords] = useState({});
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [inStreak, setInStreak] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -42,22 +44,26 @@ function NihongoApp() {
     });
   }
 
-  function addPoint() {
-    if (addPoint) {
+  function handleResult(isCorrect) {
+    if (isCorrect) {
       setScore(score + 1);
+      if (!inStreak) {
+        setInStreak(true);
+      }
+      setStreak(streak + 1);
+    } else {
+      setInStreak(false);
+      setStreak(0);
     }
   }
 
-  function handleNextWord(setAnswered) {
-    setTimeout(() => {
-      if (currentWordIndex + 1 >= words.length) {
-        setLoading(true);
-        retrieveWords();
-      } else {
-        setCurrentWordIndex(currentWordIndex + 1);
-      }
-      setAnswered(false);
-    }, 2000);
+  function handleNextWord() {
+    if (currentWordIndex + 1 >= words.length) {
+      setLoading(true);
+      retrieveWords();
+    } else {
+      setCurrentWordIndex(currentWordIndex + 1);
+    }
   }
 
   return (
@@ -65,12 +71,17 @@ function NihongoApp() {
       <Header as='h1'>Nihongo</Header>
       {error && <Message negative>{error}</Message>}
       <p>Counting in Japanese!</p>
-      <Label size='medium'>{score} Points</Label>
+      <Label size='large' color='black'>{score} Points</Label>
+      <Label size='large' color='black'>
+        {streak >= 5 && <Icon name='fire' color='orange'/>}
+        {streak} Point Streak
+      </Label>
+      <Label size='large' color='grey'>Highest streak ever: TBD</Label>
 
       {loading ? <Loader active /> :
         <NihongoQuestion word={words[currentWordIndex]}
                          handleNextWord={handleNextWord}
-                         addPoint={addPoint}/>
+                         handleResult={handleResult}/>
       }
     </Container>
   )
