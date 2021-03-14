@@ -9,18 +9,21 @@ import {
   Icon,
 } from 'semantic-ui-react';
 
-import NihongoQuestion from './NihongoQuestion'
+import NihongoQuestion from './NihongoQuestion';
+import NihongoHistory from './NihongoHistory';
 import { endpoint } from '../../utils';
 
 
 function NihongoApp() {
   const [words, setWords] = useState({});
   const [score, setScore] = useState(0);
+  const [numAnswered, setNumAnswered] = useState(0);
   const [streak, setStreak] = useState(0);
   const [inStreak, setInStreak] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     retrieveWords();
@@ -44,7 +47,7 @@ function NihongoApp() {
     });
   }
 
-  function handleResult(isCorrect) {
+  function handleResult(isCorrect, userAnswer, word) {
     if (isCorrect) {
       setScore(score + 1);
       if (!inStreak) {
@@ -55,6 +58,13 @@ function NihongoApp() {
       setInStreak(false);
       setStreak(0);
     }
+    if (history.length >= 10) {
+      history.pop();
+    }
+    history.unshift({num: numAnswered + 1, word: word,
+                     isCorrect: isCorrect, userAnswer: userAnswer})
+    setHistory(history);
+    setNumAnswered(numAnswered + 1);
   }
 
   function handleNextWord() {
@@ -71,18 +81,23 @@ function NihongoApp() {
       <Header as='h1'>Nihongo</Header>
       {error && <Message negative>{error}</Message>}
       <p>Counting in Japanese!</p>
-      <Label size='large' color='black'>{score} Points</Label>
       <Label size='large' color='black'>
-        {streak >= 5 && <Icon name='fire' color='orange'/>}
+        {score} Point{score > 0 && 's'} ({
+          numAnswered > 0 ? Math.round(100 * score/numAnswered) : 0}%)
+      </Label>
+      <Label size='large' color='black'>
+        <Icon name='fire' 
+              color={streak >= 5 ? 'orange' : 'grey'}/>
         {streak} Point Streak
       </Label>
-      <Label size='large' color='grey'>Highest streak ever: TBD</Label>
+      <Label size='large' color='grey' style={{marginTop: '5px'}}>Highest streak this week: TBD</Label>
 
       {loading ? <Loader active /> :
         <NihongoQuestion word={words[currentWordIndex]}
                          handleNextWord={handleNextWord}
                          handleResult={handleResult}/>
       }
+      {numAnswered > 0 && <NihongoHistory history={history}/>}
     </Container>
   )
 }
