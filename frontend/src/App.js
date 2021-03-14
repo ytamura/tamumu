@@ -30,7 +30,7 @@ function App() {
               <Dropdown.Item as={Link} to='/agile'>
                 agile</Dropdown.Item>
               <Dropdown.Item as={Link} to='/nihongo'>
-                🚧 nihongo</Dropdown.Item>
+                nihongo</Dropdown.Item>
               <Dropdown.Item as={Link} to='/sudoku'>
                 🚧 numberplace</Dropdown.Item>
             </Dropdown.Menu>
