@@ -29,9 +29,11 @@ def get_words():
         word['all_options'] = all_options
         del word['incorrect']
 
-        if len(word['correct']) > 1 and not 'note' in word:
-            word['note'] = '{} are all correct!'.\
-                           format('/'.join(word['correct']))
+        n_correct = len(word['correct'])
+        if n_correct > 1 and not 'note' in word:
+            word['note'] = '{} are {} correct!'.\
+                format('/'.join(word['correct']),
+                       'both' if n_correct == 2 else 'all')
     return jsonify(_words)
 
 

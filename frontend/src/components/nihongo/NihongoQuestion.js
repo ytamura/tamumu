@@ -20,7 +20,7 @@ function NihongoQuestion({ word, handleNextWord, handleResult }) {
     setTimeout(() => {
       handleNextWord(isCorrect);
       setAnswered(false);
-    }, 2000);
+    }, 3000);
   }
 
   return (
@@ -32,6 +32,7 @@ function NihongoQuestion({ word, handleNextWord, handleResult }) {
         <Button key={option}
                 size='medium'
                 disabled={answered}
+                style={{margin: '5px'}}
                 onClick={() => assessAnswer({option})}>{option}</Button>
       ))}
 
