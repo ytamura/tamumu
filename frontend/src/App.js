@@ -13,6 +13,7 @@ import {
 
 import PortalApp from './components/portal/PortalApp';
 import AgileApp from './components/agile/AgileApp';
+import NihongoApp from './components/nihongo/NihongoApp';
 
 
 function App() {
@@ -42,9 +43,7 @@ function App() {
           <AgileApp />
         </Route>
         <Route path="/nihongo">
-          <Container style={{ marginTop: '7em' }}>
-            <Header>Come back later!</Header>
-          </Container>
+          <NihongoApp />
         </Route>
         <Route path="/sudoku">
           <Container style={{ marginTop: '7em' }}>

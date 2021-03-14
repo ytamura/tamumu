@@ -12,13 +12,15 @@ from flask import Flask, Blueprint, render_template
 from flask_cors import CORS
 
 import utils
-from api import api
+from api.agile_api import agile_api
+from api.nihongo_api import nihongo_api
 
 
 app = Flask(__name__, static_url_path='',
                       static_folder='frontend/build',
                       template_folder='frontend/build')
-app.register_blueprint(api)
+app.register_blueprint(agile_api)
+app.register_blueprint(nihongo_api)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 

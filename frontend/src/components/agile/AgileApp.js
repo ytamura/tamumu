@@ -6,7 +6,8 @@ import {
   Header,
   Icon,
   Message,
-  Loader, Segment,
+  Loader,
+  Segment,
 } from 'semantic-ui-react';
 
 import AgileList from './AgileList';
@@ -14,6 +15,7 @@ import AgileEdit from './AgileEdit';
 import AgileLogin from './AgileLogin';
 import { statusGroups } from './AgileConstants';
 import { endpoint, filterObject } from '../../utils';
+
 
 function AgileApp() {
   const [games, setGames] = useState({});

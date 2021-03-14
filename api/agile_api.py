@@ -1,6 +1,6 @@
 """
 api.py
-Provides API for Flask web app
+Provides API for Agile app
 
 ytamura
 
@@ -14,13 +14,13 @@ from google.cloud import datastore
 
 from config import ADMIN_HASH
 
-api = Blueprint('api', __name__)
+agile_api = Blueprint('agile_api', __name__)
 
 
 client = datastore.Client()
 
 
-@api.route('/api/agile/games')
+@agile_api.route('/api/agile/games')
 def get_all_games():
     print('fetching games')
     try:
@@ -34,7 +34,7 @@ def get_all_games():
         return jsonify(str(e)), 400
 
 
-@api.route('/api/agile/update_game', methods=['POST'])
+@agile_api.route('/api/agile/update_game', methods=['POST'])
 def update_game():
     try:
         data = request.get_json()
@@ -56,7 +56,7 @@ def update_game():
         return jsonify(str(e)), 400
 
 
-@api.route('/api/agile/delete_game', methods=['POST'])
+@agile_api.route('/api/agile/delete_game', methods=['POST'])
 def delete_game():
     try:
         data = request.get_json()
@@ -69,7 +69,7 @@ def delete_game():
         return jsonify(str(e)), 400
 
 
-@api.route('/api/agile/login', methods=['POST'])
+@agile_api.route('/api/agile/login', methods=['POST'])
 def unlock():
     data = request.get_json()
 
