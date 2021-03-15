@@ -81,6 +81,7 @@ function NihongoApp() {
       <Header as='h1'>Nihongo</Header>
       {error && <Message negative>{error}</Message>}
       <p>Counting in Japanese!</p>
+      <br />
       <Label size='large' color='black'>
         {score} Point{score > 0 && 's'} ({
           numAnswered > 0 ? Math.round(100 * score/numAnswered) : 0}%)
@@ -90,14 +91,16 @@ function NihongoApp() {
               color={streak >= 5 ? 'orange' : 'grey'}/>
         {streak} Point Streak
       </Label>
-      <Label size='large' color='grey' style={{marginTop: '5px'}}>Highest streak this week: TBD</Label>
+      <Label size='large' color='grey' style={{marginTop: '5px'}}>Highest Streak: TBD</Label>
 
       {loading ? <Loader active /> :
         <NihongoQuestion word={words[currentWordIndex]}
                          handleNextWord={handleNextWord}
-                         handleResult={handleResult}/>
+                         handleResult={handleResult}
+                         numAnswered={numAnswered}/>
       }
-      {numAnswered > 0 && <NihongoHistory history={history}/>}
+      {numAnswered > 0 &&
+        <NihongoHistory history={history} numAnswered={numAnswered} />}
     </Container>
   )
 }

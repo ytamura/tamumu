@@ -4,50 +4,71 @@ import {
   Button,
   Header,
   Icon,
+  Label,
+  Image,
 } from 'semantic-ui-react';
 
 
-function NihongoQuestion({ word, handleNextWord, handleResult }) {
+function NihongoQuestion({ word, handleNextWord, handleResult,
+                           numAnswered }) {
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   function assessAnswer(userAnswer) {
     setAnswered(true);
-    const isCorrect = word.correct.includes(userAnswer.option);
+    setSelectedAnswer(userAnswer);
+    const isCorrect = word.correct.includes(userAnswer);
 
     setCorrect(isCorrect);
-    handleResult(isCorrect, userAnswer.option, word);
+    handleResult(isCorrect, userAnswer, word);
     setTimeout(() => {
       handleNextWord(isCorrect);
       setAnswered(false);
     }, 3000);
   }
 
+  function getButtonColor(thisAnswer) {
+    if (answered && selectedAnswer === thisAnswer) {
+      return correct ? 'green' : 'red'
+    }
+    return ''
+  }
+
   return (
-    <Segment padded='very'>
-      <p>Choose the reading that makes the most sense as a standalone word.</p>
-      <Header style={{fontSize: '50px'}} color='violet'>{word.word}</Header>
+    <Segment>
+      {answered && correct &&
+        <Label color='green' ribbon='right'>
+          <Icon name='hourglass outline' loading /> You got it!
+        </Label>
+      }
+      {answered && !correct &&
+        <Label color='red' ribbon='right'>
+          <Icon name='hourglass outline' loading /> Oops!
+        </Label>
+      }
+      {!answered &&
+        <Label color='' ribbon='right' hidden>
+          Question {numAnswered + 1}
+        </Label>
+      }
+
+      <Segment basic style={{marginTop: '-20px',
+                             marginLeft: '20px',
+                             marginRight: '20px'}}>
+      <span>Choose the reading that makes the most sense as a standalone word.</span>
+      <Header style={{fontSize: '50px', marginLeft: '0px'}} color='violet'>{word.word}</Header>
 
       {word.all_options.map((option) => (
         <Button key={option}
                 size='medium'
                 disabled={answered}
-                style={{margin: '5px'}}
-                onClick={() => assessAnswer({option})}>{option}</Button>
+                color={getButtonColor(option)}
+                style={{marginRight: '10px', marginBottom: '10px'}}
+                onClick={() => assessAnswer(option)}>{option}</Button>
       ))}
 
-      {answered && correct &&
-        <Header as='h3' color='green'>
-          You got it! {word.note}
-          <Icon loading name='hourglass outline'/>
-        </Header>
-      }
-      {answered && !correct &&
-        <Header as='h3' color='red'>
-          Oops, it was {word.correct.join(' or ')}. {word.note}
-          <Icon loading name='hourglass outline'/>
-        </Header>
-      }
+      </Segment>
     </Segment>
   )
 }
