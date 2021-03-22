@@ -39,6 +39,11 @@ def nihongo():
     return render_template('index.html', current_app='nihongo')
 
 
+@app.route('/nihongo/<tab>')
+def nihongo_tab(tab):
+    return render_template('index.html', current_app='nihongo')
+
+
 @app.route('/sudoku')
 def sudoku():
     return render_template('index.html', current_app='sudoku')

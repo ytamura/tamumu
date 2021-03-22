@@ -93,9 +93,9 @@ function NihongoApp({ view }) {
 
   return (
     <Container text style={{ marginTop: '7em' }}>
-      <Header as='h1'>Nihongo</Header>
+      <Header as='h1'>Nihongo 1 2 3</Header>
       {error && <Message negative>{error}</Message>}
-      <p>Counting in Japanese!</p>
+      <br />
 
       <Menu tabular>
         <Menu.Item

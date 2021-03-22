@@ -47,7 +47,7 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
                             title={streakShareString()}
                             via='tamumu61' hashtags={['nihongo']}>
           <Icon style={{marginTop: '5px', marginLeft: '5px'}}
-                name='twitter' link/>share streak!
+                name='twitter' link/>share my streak!
         </TwitterShareButton>}
     </>
   )

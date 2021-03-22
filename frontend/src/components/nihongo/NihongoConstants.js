@@ -1,5 +1,5 @@
 export const counters = [
-  {counter: 'つ', note: 'Generic counter for objects that only goes from 1-9'},
+  {counter: 'つ', note: 'Generic counter for objects, but only for 1-9'},
   {counter: '個', note: 'Generic counter for objects'},
   {counter: '人', note: 'Counter for people'},
   {counter: '本', note: 'Counter for lengthy objects, like pens'},
