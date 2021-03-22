@@ -22,7 +22,7 @@ client = datastore.Client()
 @nihongo_api.route('/api/nihongo/words')
 def get_words():
     _words = copy.deepcopy(words)
-    random.shuffle(_words)
+    #random.shuffle(_words)
     for word in _words:
         all_options = word['correct'] + word['incorrect']
         random.shuffle(all_options)

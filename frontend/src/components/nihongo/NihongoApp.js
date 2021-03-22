@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
+  Link
+} from 'react-router-dom';
+import {
   Container,
   Header,
   Message,
   Loader,
+  Menu,
 } from 'semantic-ui-react';
 
-import NihongoQuestion from './NihongoQuestion';
 import NihongoHistory from './NihongoHistory';
+import NihongoQuestion from './NihongoQuestion';
+import NihongoReference from './NihongoReference';
 import NihongoScores from './NihongoScores';
 import { endpoint } from '../../utils';
 
 
-function NihongoApp() {
+function NihongoApp({ view }) {
+  const [activeItem, setActiveItem] = useState(view);
   const [words, setWords] = useState({});
+  const [sortedWords, setSortedWords] = useState({});
   const [score, setScore] = useState(0);
   const [numAnswered, setNumAnswered] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -31,9 +38,10 @@ function NihongoApp() {
 
   function retrieveWords() {
     axios.get(endpoint + 'api/nihongo/words').then(response => {
-      console.log("Loaded words");
       if (response.status === 200) {
-        setWords(response.data);
+        setSortedWords(response.data);
+        let wordsToShuffle = [...response.data];
+        setWords(wordsToShuffle.sort((a, b) => 0.5 - Math.random()));
         setCurrentWordIndex(0);
         setError('');
       } else {
@@ -79,23 +87,59 @@ function NihongoApp() {
     }
   }
 
+  function handleTabClick(tab) {
+    setActiveItem(tab);
+  }
+
   return (
     <Container text style={{ marginTop: '7em' }}>
       <Header as='h1'>Nihongo</Header>
       {error && <Message negative>{error}</Message>}
       <p>Counting in Japanese!</p>
-      <br />
-      <NihongoScores score={score} streak={streak} numAnswered={numAnswered}
-                     highestStreak={highestStreak}/>
 
-      {loading ? <Loader active /> :
-        <NihongoQuestion word={words[currentWordIndex]}
-                         handleNextWord={handleNextWord}
-                         handleResult={handleResult}
-                         numAnswered={numAnswered}/>
+      <Menu tabular>
+        <Menu.Item
+          name='Game'
+          active={activeItem === 'game'}
+          onClick={() => handleTabClick('game')}
+          as={Link} to='/nihongo'
+        />
+        <Menu.Item
+          name='Leaderboard'
+          active={activeItem === 'leaderboard'}
+          onClick={() => handleTabClick('leaderboard')}
+          as={Link} to='/nihongo/leaderboard'
+        />
+        <Menu.Item
+          name='Reference'
+          active={activeItem === 'reference'}
+          onClick={() => handleTabClick('reference')}
+          as={Link} to='/nihongo/reference'
+        />
+      </Menu>
+
+      {activeItem === 'game' &&
+      <>
+        <NihongoScores score={score} streak={streak} numAnswered={numAnswered}
+                       highestStreak={highestStreak}/>
+
+        {loading ? <Loader active /> :
+          <NihongoQuestion word={words[currentWordIndex]}
+                           handleNextWord={handleNextWord}
+                           handleResult={handleResult}
+                           numAnswered={numAnswered}/>
+        }
+        {numAnswered > 0 &&
+          <NihongoHistory history={history} numAnswered={numAnswered} />}
+      </>}
+
+      {activeItem === 'reference' &&
+        (loading ? <Loader active /> :
+                   <NihongoReference words={sortedWords} />)
       }
-      {numAnswered > 0 &&
-        <NihongoHistory history={history} numAnswered={numAnswered} />}
+
+      {activeItem === 'leaderboard' && <Header as='h2'>Come back soon!</Header>}
+      <br />
     </Container>
   )
 }

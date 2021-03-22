@@ -50,7 +50,7 @@ function NihongoQuestion({ word, handleNextWord, handleResult,
         </Label>
       }
       {!answered &&
-        <Label color='' ribbon='right' hidden>
+        <Label ribbon='right' hidden>
           Question {numAnswered + 1}
         </Label>
       }
@@ -65,6 +65,7 @@ function NihongoQuestion({ word, handleNextWord, handleResult,
       {word.all_options.map((option) => (
         <Button key={option}
                 size='big'
+                active={false}
                 disabled={answered}
                 color={getButtonColor(option)}
                 style={{marginRight: '10px', marginBottom: '10px'}}

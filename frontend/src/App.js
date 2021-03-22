@@ -3,7 +3,7 @@ import {
   Switch,
   Route,
   Link
-} from "react-router-dom";
+} from 'react-router-dom';
 import {
   Container,
   Dropdown,
@@ -42,8 +42,14 @@ function App() {
         <Route path="/agile">
           <AgileApp />
         </Route>
+        <Route path="/nihongo/reference">
+          <NihongoApp view='reference'/>
+        </Route>
+        <Route path="/nihongo/leaderboard">
+          <NihongoApp view='leaderboard'/>
+        </Route>
         <Route path="/nihongo">
-          <NihongoApp />
+          <NihongoApp view='game'/>
         </Route>
         <Route path="/sudoku">
           <Container style={{ marginTop: '7em' }}>
