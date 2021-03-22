@@ -19,7 +19,7 @@ import NihongoApp from './components/nihongo/NihongoApp';
 function App() {
   return (
     <Router className="App">
-      <Menu fixed='top' id="top_bar">
+      <Menu fixed='top' id="top-bar">
         <Container>
           <Menu.Item header as={Link} to='/'>
             port:tamumu

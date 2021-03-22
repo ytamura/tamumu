@@ -11,6 +11,7 @@ import {
 
 import NihongoQuestion from './NihongoQuestion';
 import NihongoHistory from './NihongoHistory';
+import NihongoScores from './NihongoScores';
 import { endpoint } from '../../utils';
 
 
@@ -20,6 +21,7 @@ function NihongoApp() {
   const [numAnswered, setNumAnswered] = useState(0);
   const [streak, setStreak] = useState(0);
   const [inStreak, setInStreak] = useState(false);
+  const [highestStreak, setHighestStreak] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -53,6 +55,9 @@ function NihongoApp() {
       if (!inStreak) {
         setInStreak(true);
       }
+      if (streak + 1 > highestStreak) {
+        setHighestStreak(streak + 1);
+      }
       setStreak(streak + 1);
     } else {
       setInStreak(false);
@@ -82,16 +87,8 @@ function NihongoApp() {
       {error && <Message negative>{error}</Message>}
       <p>Counting in Japanese!</p>
       <br />
-      <Label size='large' color='black'>
-        {score} Point{score > 0 && 's'} ({
-          numAnswered > 0 ? Math.round(100 * score/numAnswered) : 0}%)
-      </Label>
-      <Label size='large' color='black'>
-        <Icon name='fire' 
-              color={streak >= 5 ? 'orange' : 'grey'}/>
-        {streak} Point Streak
-      </Label>
-      <Label size='large' color='grey' style={{marginTop: '5px'}}>Highest Streak: TBD</Label>
+      <NihongoScores score={score} streak={streak} numAnswered={numAnswered}
+                     highestStreak={highestStreak}/>
 
       {loading ? <Loader active /> :
         <NihongoQuestion word={words[currentWordIndex]}
