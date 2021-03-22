@@ -1,7 +1,6 @@
 import {
   Segment,
   Header,
-  Message,
 } from 'semantic-ui-react';
 
 

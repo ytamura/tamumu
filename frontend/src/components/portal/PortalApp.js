@@ -13,8 +13,8 @@ function PortalApp() {
       <div id="profile-links">
         <ul>
           <li>
-            <a href="http://www.linkedin.com/in/ytamura" rel="noreferrer"
-               target="_blank">linkedin</a>
+            <a href="https://twitter.com/tamumu61" rel="noreferrer"
+               target="_blank">twitter</a>
           </li>
           <li>
             <a href="http://www.quora.com/Yuriko-Tamura" rel="noreferrer"

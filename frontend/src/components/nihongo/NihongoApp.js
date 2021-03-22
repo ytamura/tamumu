@@ -5,8 +5,6 @@ import {
   Header,
   Message,
   Loader,
-  Label,
-  Icon,
 } from 'semantic-ui-react';
 
 import NihongoQuestion from './NihongoQuestion';

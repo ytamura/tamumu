@@ -1,3 +1,4 @@
+import { TwitterShareButton } from 'react-share';
 import {
   Label,
   Icon,
@@ -21,6 +22,12 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
     }
   }
 
+  function streakShareString() {
+    return ('I got a ' + highestStreak +
+            '-point streak 🔥 on this random nihongo counter quiz! ' +
+            'Can you beat me?');
+  }
+
   return (
     <>
       <Label size='large' color='black'>
@@ -35,6 +42,13 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
       <Label size='large' color='grey' style={{marginTop: '5px'}}>
         Highest Streak: {highestStreak}
       </Label>
+      {streak >= 5 &&
+        <TwitterShareButton url='http://yurikotamura.com/nihongo'
+                            title={streakShareString()}
+                            via='tamumu61' hashtags={['nihongo']}>
+          <Icon style={{marginTop: '5px', marginLeft: '5px'}}
+                name='twitter' link/>share streak!
+        </TwitterShareButton>}
     </>
   )
 }
