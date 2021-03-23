@@ -31,7 +31,7 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
   return (
     <>
       <Label size='large' color='black'>
-          {score} Point{score > 0 && 's'} ({
+          {score} Point{score !== 1 && 's'} ({
             numAnswered > 0 ? Math.round(100 * score/numAnswered) : 0}%)
       </Label>
       <Label size='large' color='black'>

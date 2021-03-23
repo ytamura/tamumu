@@ -1,11 +1,10 @@
 import {
-  Accordion,
   Header,
   Table,
   Menu,
   Icon,
 } from 'semantic-ui-react';
-import { counters, kansuujiOrder, trickQuestion } from './NihongoConstants';
+import { counters, trickQuestion } from './NihongoConstants';
 
 
 function NihongoReference({ words }) {
@@ -36,7 +35,9 @@ function NihongoReference({ words }) {
           <p>{counter.note}</p>
           <Table>
           {words.filter((word) =>
-            word.word.includes(counter.counter)).map(word => (
+            word.word.includes(counter.filter) &&
+            !word.word.startsWith(counter.filter)
+           ).map(word => (
             <Table.Row key={word.word}>
               <Table.Cell collapsing>
                 {word.correct.includes(trickQuestion) ?

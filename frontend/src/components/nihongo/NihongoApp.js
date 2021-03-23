@@ -98,24 +98,14 @@ function NihongoApp({ view }) {
       <br />
 
       <Menu tabular>
-        <Menu.Item
-          name='Game'
-          active={activeItem === 'game'}
-          onClick={() => handleTabClick('game')}
-          as={Link} to='/nihongo'
-        />
-        <Menu.Item
-          name='Leaderboard'
-          active={activeItem === 'leaderboard'}
-          onClick={() => handleTabClick('leaderboard')}
-          as={Link} to='/nihongo/leaderboard'
-        />
-        <Menu.Item
-          name='Reference'
-          active={activeItem === 'reference'}
-          onClick={() => handleTabClick('reference')}
-          as={Link} to='/nihongo/reference'
-        />
+        {['Game', 'Leaderboard', 'Reference'].map(tab => (
+          <Menu.Item key={tab}
+            name={tab}
+            active={activeItem === tab.toLowerCase()}
+            onClick={() => handleTabClick(tab.toLowerCase())}
+            as={Link} to={'/nihongo/' + tab.toLowerCase()}
+          />
+        ))}
       </Menu>
 
       {activeItem === 'game' &&

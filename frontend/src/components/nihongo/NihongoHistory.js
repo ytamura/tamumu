@@ -9,7 +9,7 @@ function NihongoHistory({ history, numAnswered }) {
     <Segment basic padded='very'>
       <Header>Your History</Header>
       {history.map(result => (
-        <div>
+        <div key={result.num}>
           <h4>
             [{result.num}] {result.word.word}:
             &nbsp;
