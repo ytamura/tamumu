@@ -1,10 +1,18 @@
 export const counters = [
-  {counter: 'つ', note: 'Generic counter for objects, but only for 1-9'},
-  {counter: '個', note: 'Generic counter for objects'},
-  {counter: '人', note: 'Counter for people'},
-  {counter: '本', note: 'Counter for lengthy objects, like pens'},
-  {counter: '百', note: 'Hundred'},
-  {counter: '分 (minutes)', note: 'Counter for the minutes time unit, not to be confused with percentages'},
+  {counter: 'つ', filter: 'つ',
+   note: 'Generic counter for objects, but only for 1-9'},
+  {counter: '個', filter: '個',
+   note: 'Generic counter for objects'},
+  {counter: '人', filter: '人',
+   note: 'Counter for people'},
+  {counter: '本', filter: '本',
+   note: 'Counter for lengthy objects, like pens'},
+  {counter: '百', filter: '百',
+   note: 'Hundred'},
+  {counter: '時', filter: '時',
+   note: 'Hour, when telling time. Same readings work for 時間 too.'},
+  {counter: '分 (minutes)', filter: '分 (minute',
+   note: 'Counter for the minutes time unit, not to be confused with percentages 分 (ぶ)'},
 ];
 
 export const trickQuestion = 'Trick Question!';
