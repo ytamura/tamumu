@@ -1,6 +1,7 @@
 import {
   Icon,
   Table,
+  Popup
 } from 'semantic-ui-react';
 
 import AgileEdit from './AgileEdit';
@@ -20,8 +21,13 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
               <>
               <Table.Row key={game_key} active={_game.edit ? true : false}>
                 <Table.Cell>
-                  <Icon name={statusMap[_game.status].icon}
-                        color={statusMap[_game.status].color}/> {_game.name}
+                  <Popup trigger={
+                    <Icon name={statusMap[_game.status].icon}
+                          color={statusMap[_game.status].color}/>}
+                         content={_game.status}
+                         position='left center'
+                         inverted
+                  />  {_game.name}
                 </Table.Cell>
 
                 <Table.Cell collapsing>
