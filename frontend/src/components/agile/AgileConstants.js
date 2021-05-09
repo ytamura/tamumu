@@ -10,8 +10,10 @@ export const statusMap = {
 export const statusGroups = [
   {'heading': 'In Progress',
    'statuses': ['IN_PROGRESS']},
-  {'heading': 'Backlog & Wishlist',
-   'statuses': ['BACKLOG', 'IN_WISHLIST', 'PAUSED']},
+  {'heading': 'Backlog',
+   'statuses': ['BACKLOG', 'PAUSED']},
+  {'heading': 'Wishlist',
+   'statuses': ['IN_WISHLIST']},
   {'heading': 'Done for Now',
    'statuses': ['COMPLETED', 'WONT_FINISH']},
 ];

@@ -9,13 +9,14 @@ import {
 function NihongoLeaderboard({ leaders }) {
   return (
     <>
-      <Header as='h2'>Top 20 Streaks</Header>
+      <Header as='h2'>Top Streaks</Header>
       <Table>
         {leaders.map((leader) =>
           <Table.Row>
           </Table.Row>
         )}
       </Table>
+      🚧 Under Construction 🚧
     </>
   )
 }
