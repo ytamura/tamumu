@@ -13,6 +13,8 @@ from flask import Blueprint, jsonify, request
 from google.cloud import datastore
 
 from data.nihongo_counting import words
+from api.datastore_utils \
+    import get_all, delete_entity, update_entity, NIHONGO_LEADER_KIND
 
 nihongo_api = Blueprint('nihongo_api', __name__)
 
@@ -37,12 +39,18 @@ def get_words():
     return jsonify(_words)
 
 
-@nihongo_api.route('/api/nihongo/high_score')
-def get_high_score():
-    # TODO
-    return jsonify(8);
+@nihongo_api.route('/api/nihongo/leaders')
+def get_leaders():
+    return get_all(client, NIHONGO_LEADER_KIND)
 
 
-@nihongo_api.route('/api/nihongo/update_high_score', methods=['POST'])
-def update_high_score():
-    pass
+@nihongo_api.route('/api/nihongo/update_leader', methods=['POST'])
+def update_leader():
+    data = request.get_json()
+    return update_entity(client, NIHONGO_LEADER_KIND, data)
+
+
+@nihongo_api.route('/api/nihongo/delete_leader', methods=['POST'])
+def delete_leader():
+    data = request.get_json()
+    return delete_entity(client, NIHONGO_LEADER_KIND, data)

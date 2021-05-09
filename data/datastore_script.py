@@ -53,7 +53,7 @@ def dump_game_data(client, kind="Game"):
 
     print('Database:')
     for result in results:
-        result['_id'] = result.key.id
+        #result['_id'] = result.key.id
         print(result)
 
 def delete_game(client, _id, kind="Game"):

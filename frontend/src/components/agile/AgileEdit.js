@@ -63,11 +63,10 @@ function AgileEdit({ game, handleEditSubmit, handleDelete }) {
       pass = false;
     }
     if (pass) {
-      handleEditSubmit(gameId,
-                       {_id: gameId,
+      handleEditSubmit({_id: gameId,
                         name: draftName,
                         status: draftStatus,
-                        players: draftPlayers},);
+                        players: draftPlayers});
     }
   }
 

@@ -7,19 +7,22 @@ import {
   Input,
   Grid,
   Popup,
+  Button,
 } from 'semantic-ui-react';
 
 
-function NihongoScores({ score, streak, numAnswered, highestStreak }) {
-  const [player, setPlayer] = useState('');
-  const [playerSubmitted, setPlayerSubmitted] = useState(false);
+function NihongoScores({ score, streak, numAnswered, highestStreak,
+                         player, setPlayer }) {
+  const [draftPlayer, setDraftPlayer] = useState('')
+  const [playerInputOpen, setPlayerInputOpen] = useState(true);
 
   function handlePlayerChange(event) {
-    setPlayer(event.target.value);
+    setDraftPlayer(event.target.value);
+    setPlayerInputOpen(true);
   }
 
   function handlePlayerSubmit() {
-    setPlayerSubmitted(true);
+    setPlayer(draftPlayer);
   }
 
   function getFireColor() {
@@ -45,8 +48,7 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
   }
 
   return (
-    <>
-      <Grid columns='equal'>
+    <Grid columns='equal'>
       <Grid.Row columns={2}>
         <Grid.Column>
           <Label size='large' color='black'>
@@ -59,37 +61,45 @@ function NihongoScores({ score, streak, numAnswered, highestStreak }) {
             {streak} Point Streak
           </Label>
           <Label size='large' color='grey' style={{marginTop: '5px'}}>
-            Highest Streak: {highestStreak}
+            Best Streak: {highestStreak}
           </Label>
           {highestStreak >= 5 &&
             <TwitterShareButton url='http://yurikotamura.com/nihongo'
                                 title={streakShareString()}
                                 via='tamumu61' hashtags={['nihongo']}>
               <Icon style={{marginTop: '5px', marginLeft: '5px'}}
-                    name='twitter' link/>share streak!
+                    name='twitter' link/>share!
             </TwitterShareButton>}
         </Grid.Column>
         <Grid.Column textAlign='right' width={4}>
-          {playerSubmitted ?
+          {player ?
             <div style={{marginTop: '5px'}}><i>{player}</i></div> :
-            <Popup trigger={
-              <Form onSubmit={handlePlayerSubmit}>
-                <Form.Field
-                  control={Input}
-                  value={player}
-                  maxLength={15}
-                  width={16}
-                  onChange={handlePlayerChange}
-                  placeholder='Player Name'
-                />
-              </Form>}
-              content='Enter your name to participate in the leaderboard!'
-              basic />
+            highestStreak >= 5 &&
+              <Popup trigger={
+                <Form onSubmit={handlePlayerSubmit}>
+                  <Form.Field
+                    control={Input}
+                    value={draftPlayer}
+                    maxLength={15}
+                    width={16}
+                    onChange={handlePlayerChange}
+                    placeholder='Player Name'
+                  />
+                </Form>}
+
+                open={playerInputOpen}
+                basic>
+                <Button icon='close' size='mini'
+                        floated='right' circular compact
+                        onClick={() => setPlayerInputOpen(false)}/>
+                {draftPlayer.length > 0 ?
+                  'Press enter to submit' :
+                  'Enter your name to participate in the leaderboard!'}
+              </Popup>
           }
           </Grid.Column>
       </Grid.Row>
-      </Grid>
-    </>
+    </Grid>
   )
 }
 

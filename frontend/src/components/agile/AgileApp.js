@@ -54,25 +54,25 @@ function AgileApp() {
     });
   }
 
-  function handleEditSubmit(gameId, newGame) {
+  function handleEditSubmit(game) {
     // New or Update
     axios.post(endpoint + 'api/agile/update_game',
-               { ...newGame }).then(response => {
+               { ...game }).then(response => {
       console.log(response.data);
       if (response.data === 'updated') {
         setGames({
           ...games,
-          [gameId] : {
-             ...newGame,
+          [game._id] : {
+             ...game,
              edit: false,
           }
         });
         setError('');
-        if (!(gameId in games)) {
+        if (!(game._id in games)) {
           setShowAddForm(false);
         }
       } else {
-        setError('Error updating ' + newGame.name + '\n' +
+        setError('Error updating ' + game.name + '\n' +
                  response.data.toString());
       }
     }).catch(_error => {

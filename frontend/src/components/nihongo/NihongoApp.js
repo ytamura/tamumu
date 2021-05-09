@@ -9,9 +9,11 @@ import {
   Message,
   Loader,
   Menu,
+  Segment,
 } from 'semantic-ui-react';
 
 import NihongoHistory from './NihongoHistory';
+import NihongoLeaderboard from './NihongoLeaderboard';
 import NihongoQuestion from './NihongoQuestion';
 import NihongoReference from './NihongoReference';
 import NihongoScores from './NihongoScores';
@@ -19,6 +21,7 @@ import { endpoint } from '../../utils';
 
 
 function NihongoApp({ view }) {
+  const [player, setPlayer] = useState('');
   const [activeItem, setActiveItem] = useState(view);
   const [words, setWords] = useState({});
   const [sortedWords, setSortedWords] = useState({});
@@ -30,10 +33,13 @@ function NihongoApp({ view }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [leadersLoading, setLeadersLoading] = useState(true);
   const [history, setHistory] = useState([]);
+  const [leaders, setLeaders] = useState([]);
 
   useEffect(() => {
     retrieveWords();
+    retrieveLeaders();
   }, []);
 
   function retrieveWords() {
@@ -43,9 +49,9 @@ function NihongoApp({ view }) {
         let wordsToShuffle = [...response.data];
         setWords(wordsToShuffle.sort((a, b) => 0.5 - Math.random()));
         setCurrentWordIndex(0);
-        setError('');
       } else {
-        setError('Error retrieving words: ' + response.data.toString())
+        setError(error + 'Error retrieving words: ' + response.data.toString()
+                 + '\n');
       }
       setLoading(false);
     }).catch(_error => {
@@ -53,6 +59,43 @@ function NihongoApp({ view }) {
       setError(_error.toString());
       setLoading(false);
     });
+  }
+
+  function retrieveLeaders() {
+    axios.get(endpoint + 'api/nihongo/leaders').then(response => {
+      if (response.status === 200) {
+        setLeaders(response.data);
+      } else {
+        setError('Error retrieving leaders: ' + response.data.toString())
+      }
+      setLeadersLoading(false);
+    }).catch(_error => {
+      console.log(_error);
+      if (error === '') {
+        setError(_error.toString());
+      }
+      setLeadersLoading(false);
+    });
+  }
+
+  function handleUpdateLeader(leader) {
+    axios.post(endpoint + 'api/nihongo/update_leader',
+               { ...leader }).then(response => {
+      console.log(response.data);
+      if (response.data === 'updated') {
+        setLeaders({
+          ...leaders,
+          [leader._id] : { ...leader }
+        });
+        setError('');
+      } else {
+        setError('Error updating ' + leader.name + '\n' +
+                 response.data.toString());
+      }
+    }).catch(_error => {
+      console.log(_error);
+      setError(_error.toString());
+    })
   }
 
   function handleResult(isCorrect, userAnswer, word) {
@@ -111,24 +154,36 @@ function NihongoApp({ view }) {
       {activeItem === 'game' &&
       <>
         <NihongoScores score={score} streak={streak} numAnswered={numAnswered}
-                       highestStreak={highestStreak}/>
+                       highestStreak={highestStreak} player={player}
+                       setPlayer={setPlayer} />
 
-        {loading ? <Loader active /> :
-          <NihongoQuestion word={words[currentWordIndex]}
-                           handleNextWord={handleNextWord}
-                           handleResult={handleResult}
-                           numAnswered={numAnswered}/>
+        {(loading || Object.keys(words).length === 0) ?
+         <Segment padded basic><Loader active /></Segment> :
+         <NihongoQuestion word={words[currentWordIndex]}
+                          handleNextWord={handleNextWord}
+                          handleResult={handleResult}
+                          numAnswered={numAnswered}/>
         }
         {numAnswered > 0 &&
           <NihongoHistory history={history} numAnswered={numAnswered} />}
       </>}
 
       {activeItem === 'reference' &&
-        (loading ? <Loader active /> :
-                   <NihongoReference words={sortedWords} />)
+        ((loading || Object.keys(words).length === 0) ?
+         <Segment padded basic><Loader active /></Segment> :
+         <NihongoReference words={sortedWords} />)
       }
 
-      {activeItem === 'leaderboard' && <Header as='h2'>Come back soon!</Header>}
+      {activeItem === 'leaderboard' &&
+        (leadersLoading ?
+         <Segment padded basic><Loader active /></Segment> :
+         <>
+          <NihongoScores score={score} streak={streak} numAnswered={numAnswered}
+                         highestStreak={highestStreak} player={player}
+                         setPlayer={setPlayer} />
+          <NihongoLeaderboard leaders={leaders} />
+         </>)
+      }
       <br />
     </Container>
   )
