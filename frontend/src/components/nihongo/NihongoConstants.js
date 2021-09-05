@@ -13,6 +13,8 @@ export const counters = [
    note: 'Hour, when telling time. Same readings work for 時間 too.'},
   {counter: '分 (minutes)', filter: '分 (minute',
    note: 'Counter for the minutes time unit, not to be confused with percentages 分 (ぶ)'},
+　{counter: '日', filter: '日',
+   note: 'Counter for days'},
 ];
 
 export const trickQuestion = 'Trick Question!';
