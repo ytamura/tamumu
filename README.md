@@ -32,7 +32,9 @@ Website is here: http://tamumu61.appspot.com
 
 ## For datastore emulator
 * `gcloud beta emulators datastore start` with optionally `--no-store-on-disk`
-* Use `data/datastore_script.py` to manipulate/view data
+* Use `data/datastore_script.py` to manipulate/view data (see help with -h)
+    * Run `$(gcloud beta emulators datastore env-init)` first
+    * `python data/datastore_script.py load` to load dummy data
 
 # GCP Deployment
 ## Production

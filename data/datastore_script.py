@@ -31,9 +31,9 @@ def load_game_data(client):
     entities = []
     with client.transaction():
         for game in games:
-            # Don't supply key to have it autogenerate an ID
-            incomplete_key = client.key("Game")
-            game_entity = datastore.Entity(key=incomplete_key)
+            # Supply key to specify ID, otherwise autogenerates ID
+            key = client.key("Game", game['_id'])
+            game_entity = datastore.Entity(key=key)
 
             game_entity.update(
                 {

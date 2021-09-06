@@ -1,7 +1,8 @@
 import {
   Icon,
   Table,
-  Popup
+  Popup,
+  Label,
 } from 'semantic-ui-react';
 
 import AgileEdit from './AgileEdit';
@@ -10,6 +11,15 @@ import { statusMap } from './AgileConstants';
 
 function AgileList({ games, admin, handleEditClick, handleEditSubmit,
                      handleDelete }) {
+  function displayDate(game) {
+    const updated = ("last_updated" in game)
+    const dateField = updated ? "last_updated" : "_id"
+    const dateObject = new Date(game[dateField]);
+    return (updated ? "updated " : "added ")
+      + dateObject.toLocaleString("en-US", {year: "numeric",
+                                                         month: "numeric"});
+  }
+
   return (
     <div>
       <Table selectable>
@@ -27,7 +37,8 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
                          content={_game.status}
                          position='left center'
                          inverted
-                  />  {_game.name}
+                  /><Label horizontal>{displayDate(_game)}</Label>
+                  {_game.name}
                 </Table.Cell>
 
                 <Table.Cell collapsing>
