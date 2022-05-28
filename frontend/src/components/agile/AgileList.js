@@ -11,23 +11,32 @@ import { statusMap } from './AgileConstants';
 
 function AgileList({ games, admin, handleEditClick, handleEditSubmit,
                      handleDelete }) {
+  function getLastUpdatedDate(game) {
+    return game[("last_updated" in game) ? "last_updated" : "_id"];
+  }
+
+  function getSortedKeys() {
+    return Object.keys(games).sort((k1, k2) => {
+      return getLastUpdatedDate(games[k2]) - getLastUpdatedDate(games[k1]);
+    });
+  }
+
   function displayDate(game) {
     const updated = ("last_updated" in game)
-    const dateField = updated ? "last_updated" : "_id"
-    const dateObject = new Date(game[dateField]);
+    const dateObject = new Date(getLastUpdatedDate(game));
     return (updated ? "updated " : "added ")
       + dateObject.toLocaleString("en-US", {year: "numeric",
-                                                         month: "numeric"});
+                                            month: "numeric"});
   }
 
   return (
     <div>
       <Table selectable>
         <Table.Body>
-          {Object.keys(games).map((game_key) => {
+          {getSortedKeys().map((game_key) => {
             const _game = games[game_key];
 
-            return(
+            return (
               <>
               <Table.Row key={game_key} active={_game.edit ? true : false}>
                 <Table.Cell>
