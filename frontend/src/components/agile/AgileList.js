@@ -22,9 +22,10 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
   }
 
   function displayDate(game) {
-    const updated = ("last_updated" in game)
-    const dateObject = new Date(getLastUpdatedDate(game));
-    return (updated ? "updated " : "added ")
+    //const updated = ("last_updated" in game)
+    const lastUpdated = getLastUpdatedDate(game);
+    const dateObject = new Date(lastUpdated);
+    return (lastUpdated - game["_id"] < 5000 ? "added " : "updated ")
       + dateObject.toLocaleString("en-US", {year: "numeric",
                                             month: "numeric"});
   }

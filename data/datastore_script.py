@@ -40,6 +40,9 @@ def load_game_data(client):
                     "name": game['name'],
                     "status": game['status'],
                     "players": game['players'],
+                    "last_updated": (
+                        game['last_updated'] if 'last_updated' in game
+                        else game['_id']),
                 }
             )
 

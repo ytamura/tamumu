@@ -67,7 +67,7 @@ function AgileEdit({ game, handleEditSubmit, handleDelete }) {
                         name: draftName,
                         status: draftStatus,
                         players: draftPlayers,
-                        last_updated: new Date().getTime()});
+                        last_updated: isNew ? gameId : new Date().getTime()});
     }
   }
 
