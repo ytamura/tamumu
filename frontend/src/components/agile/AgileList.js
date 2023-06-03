@@ -30,6 +30,13 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
                                             month: "numeric"});
   }
 
+　function displayPlayers(game) {
+    if (game.players.length == 0) {
+      return 'No one'
+    }
+    return game.players.sort().join(', ')
+  }
+
   return (
     <div>
       <Table selectable>
@@ -52,7 +59,7 @@ function AgileList({ games, admin, handleEditClick, handleEditSubmit,
                 </Table.Cell>
 
                 <Table.Cell collapsing>
-                  {_game.players.sort().join(', ')}
+                  {displayPlayers(_game)}
                 </Table.Cell>
 
                 {admin &&

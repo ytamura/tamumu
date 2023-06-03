@@ -61,7 +61,7 @@ function App() {
         </Route>
       </Switch>
       <div id="footer">
-        <small>©2021 port:tamumu. All rights reserved.</small>
+        <small>©2023 port:tamumu. All rights reserved.</small>
       </div>
     </Router>
   );

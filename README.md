@@ -22,6 +22,7 @@ Website is here: http://tamumu61.appspot.com
 
 ## With venv activated with e.g. `. venv/bin/activate`,
 * Set environment variables for datastore emulator: `$(gcloud beta emulators datastore env-init)`
+    * If it complains about credentials, `gcloud auth application-default login`
 * `python main.py`
 * If production frontend not built yet, in `frontend/`, `npm run build` to update production build
 * Go to flask server at localhost:8080 to use production build of frontend
@@ -34,6 +35,7 @@ Website is here: http://tamumu61.appspot.com
 * `gcloud beta emulators datastore start` with optionally `--no-store-on-disk`
 * Use `data/datastore_script.py` to manipulate/view data (see help with -h)
     * Run `$(gcloud beta emulators datastore env-init)` first
+    * If it connects to production data, `export DATASTORE_PROJECT_ID=<project_id>` and `export DATASTORE_EMULATOR_HOST=localhost:8081` to explicitly switch back. DON'T load dummy data until resolved.
     * `python data/datastore_script.py load` to load dummy data
 
 # GCP Deployment
