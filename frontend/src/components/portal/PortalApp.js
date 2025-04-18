@@ -12,11 +12,11 @@ function PortalApp() {
       <div id="tag-line"><h1>port:tamumu</h1></div>
       <div id="profile-links">
         <ul>
-          <li>
-            <a href="https://twitter.com/tamumu61" rel="noreferrer"
-               target="_blank">twitter</a>
+	  <li>
+            <a href="https://github.com/ytamura" rel="noreferrer"
+               target="_blank">github</a>
           </li>
-          <li>
+	  <li>
             <a href="http://www.quora.com/Yuriko-Tamura" rel="noreferrer"
                target="_blank">quora</a>
           </li>

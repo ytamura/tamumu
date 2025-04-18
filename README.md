@@ -27,8 +27,10 @@ Website is here: http://tamumu61.appspot.com
 * Go to flask server at localhost:8080 to use production build of frontend
 
 ## For the frontend,
+* Running on node v16.20.2 due to computer limitations
+* In `frontend/`, `npm install` if packages not installed yet
 * In `frontend/`, `npm start`
-* Go to front end at localhost:3000
+* Browser will open up for localhost:3000
 
 ## For datastore emulator
 * `gcloud beta emulators datastore start` with optionally `--no-store-on-disk`
