@@ -6,6 +6,7 @@ import {
   Header,
   Icon,
   Message,
+  Menu,
   Loader,
   Segment,
 } from 'semantic-ui-react';
@@ -140,9 +141,18 @@ function AgileApp() {
           </Grid.Row>}
       </Grid>
 
+      <Menu fluid widths={statusGroups.length}>
+        {statusGroups.map(group => (
+          <Menu.Item
+            name={group.heading}
+            href={'#' + group.id}
+          />
+        ))}
+      </Menu>
+
       {statusGroups.map(group =>
         <>
-          <Header as='h3'>{group.heading}</Header>
+          <Header as='h3' id={group.id}>{group.heading}</Header>
           {loading ? <Segment padded><Loader active /></Segment> :
            <AgileList key={group.heading}
                       games={filterObject(games, 'status', group.statuses)}

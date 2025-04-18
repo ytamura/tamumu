@@ -54,10 +54,10 @@ function AgileEdit({ game, handleEditSubmit, handleDelete }) {
       setNameError(true);
       pass = false;
     }
-    if (draftPlayers.length === 0) {
-      setPlayersError(true);
-      pass = false;
-    }
+    // if (draftPlayers.length === 0) {
+    //   setPlayersError(true);
+    //   pass = false;
+    //　}
     if (!statusList.includes(draftStatus)) {
       setStatusError(true);
       pass = false;
